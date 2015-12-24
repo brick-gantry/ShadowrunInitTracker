@@ -8,7 +8,9 @@ namespace ShadowrunInitTracker.Model
 {
     public class Event
     {
-        public int Phase, Pass, Initiative;
-        public string Description;
+        public int Phase { get; set; }
+        public int Pass { get; set; }
+        public int Initiative { get; set; }
+        public string Description { get; set; }
     }
 }

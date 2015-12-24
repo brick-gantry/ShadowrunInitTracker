@@ -8,52 +8,32 @@ namespace ShadowrunInitTracker.Model
 {
     public class Clock
     {
-        public int Phase = 1;
-        public int Pass = 1;
+        public int Phase { get; set; } = 1;
 
-        //todo observable data structure
-        public ActorQueue ActorsInPass;
-
-
+        public InitPhase CurrentPhase { get; set; } = new InitPhase();
+        public InitPass CurrentPass { get { return CurrentPhase.CurrentPass; } }
+        
         public void Next()
         {
-            if (ActorsInPass.Count > 0)
+            var result = CurrentPhase.Next();
+            if(result == InitPhase.NextResult.LoopBack)
             {
-                ActorsInPass.Next();
-            }
-            else
-            {
-                Pass++;
-                if (Pass > 4)
-                {
-                    Pass = 1;
-                    Phase++;
-                    //todo roll new initiatives
-                }
-
-                ActorsInPass = GetActorQueue();
-
-                if (ActorsInPass.Count == 0)
-                {
-                    //todo ask if anyone wants to use edge to act in pass
-                }
-
-                if (ActorsInPass.Count == 0)
-                {
-                    Pass = 1;
-                    Phase++;
-                }
+                Phase++;
+                CurrentPhase.Clear();
+                BuildInit();
             }
         }
 
-        public ActorQueue GetActorQueue()
+        public void BuildInit()
         {
-            ActorQueue aq = new ActorQueue();
-            foreach (var a in ActorCollection.GetActorsForPass(Pass))
-                aq.Add(a);
-            foreach (var e in EventCollection.GetEventsForPass(Phase, Pass))
-                aq.Add(e);
-            return aq;
+            //todo roll initiatives
+            for (int pass = 1; pass <= 4; pass++)
+            {
+                foreach (var a in ActorCollection.GetActorsForPass(pass))
+                    CurrentPhase.Passes[pass].Add(a);
+                foreach (var e in EventCollection.GetEventsForPass(Phase, pass))
+                    CurrentPhase.Passes[pass].Add(e);
+            }
         }
     }
 }

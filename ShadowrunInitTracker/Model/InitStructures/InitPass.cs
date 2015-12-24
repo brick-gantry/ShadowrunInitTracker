@@ -1,39 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ShadowrunInitTracker.Model
 {
-    public class ActorQueue
+    public class InitPass : List<object>
     {
-        public List<object> Entries; //actors and events
-        public int Count { get { return Entries.Count; } }
-
-        public int CurrentActing = 0;
-
-        public void Next()
+        public object CurrentActor { get; set; }
+        public int CurrentActorIndex
         {
-            CurrentActing++;
+            get { return this.IndexOf(CurrentActor); }
+            set
+            {
+                int nextIndex = value;
+                CurrentActor = (nextIndex == Count) ? null : this[nextIndex];
+            }
         }
 
-        public void Add(Actor a)
+        public InitPass()
         {
-            Entries.Add(a);
-            Sort();
+            /*this.ch += (s, e) =>
+            {
+                Sort();
+            };*/
         }
 
-        public void Add(Event e)
+        new public void Sort()
         {
-            Entries.Add(e);
-            Sort();
-        }
-
-        public void Sort()
-        {
-            Entries.Sort((a, b)
-            =>
+            Sort((a, b) =>
             {
                 Actor actorA = a as Actor;
                 Actor actorB = b as Actor;
@@ -71,6 +68,13 @@ namespace ShadowrunInitTracker.Model
                 }
                 return 0;
             });
+        }
+
+        public enum NextResult {  NextSelected, NoneSelected }
+        public NextResult Next()
+        {
+            CurrentActorIndex++;
+            return (CurrentActor == null) ? NextResult.NoneSelected : NextResult.NextSelected;
         }
     }
 }

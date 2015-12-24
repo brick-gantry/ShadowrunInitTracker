@@ -11,7 +11,8 @@ namespace ShadowrunInitTracker.Model
 
     public class Actor
     {
-        public string Name;
+        public string Name { get; set; }
+        public string Notes { get; set; }
 
         #region unchanging stats
         public class InitiativeSet
@@ -24,12 +25,13 @@ namespace ShadowrunInitTracker.Model
         #endregion
 
         #region changing stats
-        public int RolledInit;
-        public int WoundModifier;
+        public int RolledInit { get; set; }
+        public int WoundModifier { get; set; }
         #endregion
 
-        public InitMode CurrentMode = InitMode.Physical;
-        public InitMode PassMode = InitMode.Physical;
+        public InitMode CurrentMode { get; set; } = InitMode.Physical;
+
+        public InitMode PassMode { get; set; } = InitMode.Physical;
 
         public InitiativeSet CurrentInitiativeSet
         {
