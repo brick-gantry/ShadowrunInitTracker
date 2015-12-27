@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowrunInitTracker.Model
 {
-    public class EventCollection : List<Event>
+    public class EventCollection : ObservableCollection<Event>
     {    
         public IEnumerable<Event> GetEventsForPass(int phase, int pass)
         {

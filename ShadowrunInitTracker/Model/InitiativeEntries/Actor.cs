@@ -1,70 +1,125 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShadowrunInitTracker.Model
+﻿namespace ShadowrunInitTracker.Model
 {
     public class Actor : Character, InitiativeEntry
     {
-        public int RolledInit { get; set; }
-        public int WoundModifier { get; set; }
+        string notes;
+        public string Notes
+        {
+            get { return notes; }
+            set
+            {
+                notes = value;
+                NotifyPropertyChanged("Notes");
+
+            }
+        }
+
+        int initiativeScore;
+        public int InitiativeScore
+        {
+            get { return initiativeScore; }
+            set
+            {
+                initiativeScore = value;
+                NotifyPropertyChanged("RolledInitiative");
+                NotifyPropertyChanged("CurrentInitiativePhase");
+            }
+        }
+
+        int woundModifier;
+        public int WoundModifier
+        {
+            get { return woundModifier; }
+            set
+            {
+                woundModifier = value;
+                NotifyPropertyChanged("WoundModifier");
+                NotifyPropertyChanged("CurrentInitiativePhase");
+            }
+        }
+
+        public int CurrentInitiativePhase
+        {
+            get
+            {
+                return InitiativeScore + WoundModifier;
+            }
+        }
 
         #region mode
-        public enum InitMode { Physical, Matrix, Astral }
-        public InitMode CurrentMode { get; set; }
-        public InitMode TurnMode { get; set; }
+        public enum CombatMode { Physical, Matrix, Astral }
+        CombatMode currentMode;
+        public CombatMode CurrentMode
+        {
+            get { return currentMode; }
+            set
+            {
+                currentMode = value;
+                NotifyPropertyChanged("CurrentMode");
+                NotifyPropertyChanged("CurrentInitiativeAttribute");
+                NotifyPropertyChanged("CurrentInitiativePasses");
+            }
+        }
+        CombatMode turnMode;
+        public CombatMode TurnMode
+        {
+            get { return turnMode; }
+            set
+            {
+                turnMode = value;
+                NotifyPropertyChanged("TurnMode");
+                NotifyPropertyChanged("TurnInitiativeAttribute");
+                NotifyPropertyChanged("TurnInitiativePasses");
+            }
+        }
         #endregion
 
-        public string Notes { get; set; }
 
-        public int ModeInitiativeScore
+        public int CurrentInitiativeAttribute
         {
             get
             {
                 switch (CurrentMode)
                 {
-                    case InitMode.Astral:
-                        return AstralInitiative;
-                    case InitMode.Matrix:
-                        return MatrixInitiative;
-                    case InitMode.Physical:
+                    case CombatMode.Astral:
+                        return AstralInitiativeAttribute;
+                    case CombatMode.Matrix:
+                        return MatrixInitiativeAttribute;
+                    case CombatMode.Physical:
                     default:
-                        return PhysicalInitiative;
+                        return PhysicalInitiativeAttribute;
                 }
             }
         }
 
-        public int TurnInitiativeScore
+        public int TurnInitiativeAttribute
         {
             get
             {
                 switch (TurnMode)
                 {
-                    case InitMode.Astral:
-                        return AstralInitiative;
-                    case InitMode.Matrix:
-                        return MatrixInitiative;
-                    case InitMode.Physical:
+                    case CombatMode.Astral:
+                        return AstralInitiativeAttribute;
+                    case CombatMode.Matrix:
+                        return MatrixInitiativeAttribute;
+                    case CombatMode.Physical:
                     default:
-                        return PhysicalInitiative;
+                        return PhysicalInitiativeAttribute;
                 }
             }
         }
 
-        public int ModeInitiativePasses
+        public int CurrentInitiativePasses
         {
             get
             {
                 switch (CurrentMode)
                 {
-                    case InitMode.Astral:
+                    case CombatMode.Astral:
                         return AstralPasses;
-                    case InitMode.Matrix:
+                    case CombatMode.Matrix:
                         return MatrixPasses;
-                    case InitMode.Physical:
+                    case CombatMode.Physical:
                     default:
                         return PhysicalPasses;
                 }
@@ -77,22 +132,14 @@ namespace ShadowrunInitTracker.Model
             {
                 switch (TurnMode)
                 {
-                    case InitMode.Astral:
+                    case CombatMode.Astral:
                         return AstralPasses;
-                    case InitMode.Matrix:
+                    case CombatMode.Matrix:
                         return MatrixPasses;
-                    case InitMode.Physical:
+                    case CombatMode.Physical:
                     default:
                         return PhysicalPasses;
                 }
-            }
-        }
-
-        public int CurrentInitiativePhase
-        {
-            get
-            {
-                return RolledInit - WoundModifier;
             }
         }
 
@@ -101,25 +148,20 @@ namespace ShadowrunInitTracker.Model
             TurnMode = CurrentMode;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyPropertyChanged(string name)
-        {
-            if(PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
         public void RollInit(DiceRoller.Args args)
         {
-            args.NumDice = ModeInitiativeScore;
+            args.NumDice = CurrentInitiativeAttribute + WoundModifier;
             if (args.UsingEdge)
                 args.NumDice += Edge;
             var result = DiceRoller.Roll(args);
-            RolledInit = result.Hits;
+            InitiativeScore = result.Hits;
 
             //todo use glitches
+        }
+
+        new void NotifyPropertyChanged(string propertyName)
+        {
+            base.NotifyPropertyChanged(propertyName);
         }
     }
 }

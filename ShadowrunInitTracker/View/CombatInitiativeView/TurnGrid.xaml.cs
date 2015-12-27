@@ -16,11 +16,20 @@ using System.Windows.Shapes;
 namespace ShadowrunInitTracker.View
 {
     /// <summary>
-    /// Interaction logic for FullView.xaml
+    /// Interaction logic for PhaseGrid.xaml
     /// </summary>
-    public partial class FullView : UserControl
+    public partial class TurnGrid : UserControl
     {
-        public FullView()
+        public static readonly DependencyProperty TitleProperty
+            = DependencyProperty.Register("Title", typeof(string),
+                typeof(TurnGrid));
+        public string Title
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+
+        public TurnGrid()
         {
             InitializeComponent();
         }

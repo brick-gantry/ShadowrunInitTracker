@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace ShadowrunInitTracker.Model
 {
@@ -12,6 +8,6 @@ namespace ShadowrunInitTracker.Model
 
         public static DataLibrary Instance { get; } = new DataLibrary();
 
-        public CharacterCollection Characters = new CharacterCollection();
+        public ObservableCollection<Character> Characters = new ObservableCollection<Character>();
     }
 }

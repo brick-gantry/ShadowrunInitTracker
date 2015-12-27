@@ -26,22 +26,5 @@ namespace ShadowrunInitTracker.View
         {
             InitializeComponent();
         }
-
-        public FullInitiativeViewModel ViewModel {  get { return DataContext as FullInitiativeViewModel; } }
-
-        private void AddCharacter(object sender, ExecutedRoutedEventArgs e)
-        {
-            Commands.AddCharacter();
-        }
-
-        private void SaveCharacters(object sender, ExecutedRoutedEventArgs e)
-        {
-            Commands.ExportCharacterSet(DataLibrary.Instance.Characters);
-        }
-
-        private void ImportCharacters(object sender, ExecutedRoutedEventArgs e)
-        {
-            Commands.ImportCharacterSet(DataLibrary.Instance.Characters);
-        }
     }
 }

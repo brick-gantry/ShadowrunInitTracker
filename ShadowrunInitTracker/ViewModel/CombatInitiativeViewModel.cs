@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace ShadowrunInitTracker.ViewModel
 {
-    public class FullInitiativeViewModel
+    public class CombatInitiativeViewModel
     {
-        public InitiativeTurn CurrentInit { get; set; }
-        public InitiativeTurn OriginalInit { get; set; }
-        CombatInstance clock = new CombatInstance();
+        public InitiativeTurn CurrentInit { get { return Combat.CurrentTurn; } }
+        public CombatInstance Combat = new CombatInstance();
     }
 }

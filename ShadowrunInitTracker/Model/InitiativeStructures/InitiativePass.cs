@@ -41,8 +41,8 @@ namespace ShadowrunInitTracker.Model
                 {
                     if (b is Actor)
                     {
-                        if (actorA.RolledInit != actorB.RolledInit)
-                            return actorA.RolledInit - actorB.RolledInit;
+                        if (actorA.InitiativeScore != actorB.InitiativeScore)
+                            return actorA.InitiativeScore - actorB.InitiativeScore;
                         if (actorA.Edge != actorB.Edge)
                             return actorA.Edge - actorB.Edge;
                         if (actorA.CurrentInitiativePhase != actorB.CurrentInitiativePhase)
@@ -52,14 +52,14 @@ namespace ShadowrunInitTracker.Model
                     }
                     else if (b is Event)
                     {
-                        return actorA.RolledInit - eventB.Phase;
+                        return actorA.InitiativeScore - eventB.Phase;
                     }
                 }
                 if (a is Event)
                 {
                     if (b is Actor)
                     {
-                        return eventA.Phase - actorB.RolledInit;
+                        return eventA.Phase - actorB.InitiativeScore;
                     }
                     else if (b is Event)
                     {

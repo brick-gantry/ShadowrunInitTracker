@@ -45,7 +45,8 @@ namespace ShadowrunInitTracker.Model
 
         public void BuildInit()
         {
-            Actors.ForEach(a => a.UpdateForNextPhase());
+            foreach (var a in Actors)
+                a.UpdateForNextPhase();
 
             //todo roll initiatives
 

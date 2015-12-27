@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="ShadowrunInitTracker.View.CharacterCollectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ShadowrunInitTracker.View"
+             xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel"
+             >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="CharacterList" ItemsSource="{Binding Characters}" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedCharacter}">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add" Command="vm:CharacterViewModel.AddCharacterCommand"/>
+                    <MenuItem Header="Delete" Command="vm:CharacterViewModel.DeleteCharacterCommand" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Type" Width="50" DisplayMemberBinding="{Binding Type}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Import" Grid.Row="1" Command="vm:CharacterViewModel.ImportCharactersCommand"/>
+        <Button Content="Export" Grid.Row="1" Grid.Column="1" Command="vm:CharacterViewModel.ExportCharactersCommand"/>
+    </Grid>
+</UserControl>

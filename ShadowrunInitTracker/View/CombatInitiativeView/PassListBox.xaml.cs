@@ -1,6 +1,4 @@
-﻿using ShadowrunInitTracker.Model;
-using ShadowrunInitTracker.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,26 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ShadowrunInitTracker.View
 {
     /// <summary>
-    /// Interaction logic for ActorEditWindow.xaml
+    /// Interaction logic for PhasePassListBox.xaml
     /// </summary>
-    public partial class CharacterEditWindow : Window
+    public partial class PassListBox : UserControl
     {
-        public CharacterEditWindow(CharacterEditViewModel vm)
+        public PassListBox()
         {
             InitializeComponent();
-            DataContext = vm;
-        }
-
-        public bool DoSave = false;
-        private void bSave_Click(object sender, RoutedEventArgs e)
-        {
-            DoSave = true;
-            Close();
         }
     }
 }

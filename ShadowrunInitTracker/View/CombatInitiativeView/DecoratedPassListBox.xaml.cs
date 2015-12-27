@@ -16,11 +16,20 @@ using System.Windows.Shapes;
 namespace ShadowrunInitTracker.View
 {
     /// <summary>
-    /// Interaction logic for CharactersView.xaml
+    /// Interaction logic for DecoratedPassPhaseListBox.xaml
     /// </summary>
-    public partial class CharacterCollectionView : UserControl
+    public partial class DecoratedPassListBox : UserControl
     {
-        public CharacterCollectionView()
+        public static readonly DependencyProperty TitleProperty
+            = DependencyProperty.Register("Title", typeof(string), 
+                typeof(DecoratedPassListBox));
+        public string Title
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+
+        public DecoratedPassListBox()
         {
             InitializeComponent();
         }

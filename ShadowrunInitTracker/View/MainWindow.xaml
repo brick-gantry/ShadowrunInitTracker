@@ -4,34 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShadowrunInitTracker.View"
-        mc:Ignorable="d"
-        Title="Shadowrun 4th Ed. Initiative Tracker by Rick Gentry" SizeToContent="WidthAndHeight">
-    <Window.CommandBindings>
-        <CommandBinding Command="local:Commands.AddCharacterCommand" Executed="AddCharacter"/>
-        <CommandBinding Command="local:Commands.SaveCharactersCommand" Executed="SaveCharacters"/>
-    </Window.CommandBindings>
+        xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel"
+        Title="Shadowrun 4th Ed. Initiative Tracker by Rick Gentry" 
+        SizeToContent="WidthAndHeight" MinHeight="300" MinWidth="300" WindowStartupLocation="CenterScreen" 
+        >
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <Menu>
-            <MenuItem Header="_Combat">
-                <MenuItem Header="S_tart"/>
-                <MenuItem Header="_Save"/>
-                <MenuItem Header="_Load"/>
-            </MenuItem>
-            <MenuItem Header="_Characters">
-                <MenuItem Header="_Add" Command="local:Commands.AddCharacterCommand"/>
-                <MenuItem Header="_View"/>
-                <MenuItem Header="_Save" Command="local:Commands.ExportCharacterSetCommand"/>
-                <MenuItem Header="_Load"/>
-            </MenuItem>
-            <MenuItem Header="_Events">
-                <MenuItem Header="_Add"/>
-                <MenuItem Header="_View"/>
-            </MenuItem>
-        </Menu>
-        <local:FullView Grid.Row="1"/>
+        <TabControl VerticalAlignment="Stretch">
+            <TabItem Header="Combat">
+                <local:CombatInitiativeView/>
+            </TabItem>
+            <TabItem Header="Characters">
+                <local:CharacterTab  VerticalAlignment="Stretch"/>
+            </TabItem>
+            <TabItem Header="Events">
+                
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
