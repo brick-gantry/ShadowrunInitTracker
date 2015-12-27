@@ -1,6 +1,4 @@
-﻿using ShadowrunInitTracker.Model;
-using ShadowrunInitTracker.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,26 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ShadowrunInitTracker.View
 {
     /// <summary>
-    /// Interaction logic for ActorEditWindow.xaml
+    /// Interaction logic for EventCollectionView.xaml
     /// </summary>
-    public partial class EventEditWindow : Window
+    public partial class EventCollectionView : UserControl
     {
-        public EventEditWindow(EventEditViewModel vm)
+        public EventCollectionView()
         {
             InitializeComponent();
-            DataContext = vm;
-        }
-
-        public bool DoSave = false;
-        private void bSave_Click(object sender, RoutedEventArgs e)
-        {
-            DoSave = true;
-            Close();
         }
     }
 }

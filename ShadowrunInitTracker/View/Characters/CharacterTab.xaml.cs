@@ -29,12 +29,12 @@ namespace ShadowrunInitTracker.View
 
         private void ImportCharacters(object sender, ExecutedRoutedEventArgs e)
         {
-            vm.ImportCharacterSet(DataLibrary.Instance.Characters);
+            vm.ImportCharacterSet(DataLibrary.Characters);
         }
 
         private void ExportCharacters(object sender, ExecutedRoutedEventArgs e)
         {
-            vm.ExportCharacterSet(DataLibrary.Instance.Characters);
+            vm.ExportCharacterSet(DataLibrary.Characters);
         }
     }
 }

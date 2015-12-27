@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ShadowrunInitTracker.View.EventCollectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ShadowrunInitTracker.View"
+             xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel">
+    <ListView x:Name="EventList" ItemsSource="{Binding Events}" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedEvent}">
+        <ListView.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Add" Command="vm:EventViewModel.AddEventCommand"/>
+                <MenuItem Header="Delete" Command="vm:EventViewModel.DeleteEventCommand" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+            </ContextMenu>
+        </ListView.ContextMenu>
+        <ListView.View>
+            <GridView>
+                <GridViewColumn Header="Description" Width="200" DisplayMemberBinding="{Binding Description}"/>
+                <GridViewColumn Header="Turn" Width="40" DisplayMemberBinding="{Binding Turn}"/>
+                <GridViewColumn Header="Pass" Width="40" DisplayMemberBinding="{Binding Pass}"/>
+                <GridViewColumn Header="Phase" Width="40" DisplayMemberBinding="{Binding Phase}"/>
+            </GridView>
+        </ListView.View>
+    </ListView>
+</UserControl>

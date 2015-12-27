@@ -16,7 +16,7 @@ namespace ShadowrunInitTracker.ViewModel
         private static readonly string charactersExtension = "S.I.T. Characters (*.sitch)|*.sitch";
         private static XmlSerializer characterSerializer = new XmlSerializer(typeof(ObservableCollection<Character>));
 
-        public ObservableCollection<Character> Characters { get { return DataLibrary.Instance.Characters; } }
+        public ObservableCollection<Character> Characters { get { return DataLibrary.Characters; } }
         Character selectedCharacter;
         public Character SelectedCharacter
         {

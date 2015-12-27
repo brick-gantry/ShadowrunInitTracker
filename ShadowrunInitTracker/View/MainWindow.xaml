@@ -17,7 +17,7 @@
                 <local:CharacterTab  VerticalAlignment="Stretch"/>
             </TabItem>
             <TabItem Header="Events">
-                
+                <local:EventTab VerticalAlignment="Stretch"/>
             </TabItem>
         </TabControl>
     </Grid>

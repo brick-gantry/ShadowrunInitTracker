@@ -15,7 +15,7 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="CharacterList" ItemsSource="{Binding Characters}" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedCharacter}">
+        <ListView ItemsSource="{Binding Characters}" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedCharacter}">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Add" Command="vm:CharacterViewModel.AddCharacterCommand"/>

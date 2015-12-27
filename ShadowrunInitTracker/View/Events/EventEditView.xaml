@@ -7,13 +7,13 @@
              xmlns:tlkt="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:viewmodel="clr-namespace:ShadowrunInitTracker.ViewModel"
              >
-    <tlkt:PropertyGrid Width="400" SelectedObject="{Binding Mode=OneWay}" AutoGenerateProperties="False" IsCategorized="False" 
+    <tlkt:PropertyGrid Width="400" SelectedObject="{Binding SelectedEvent}" AutoGenerateProperties="False" IsCategorized="False" 
                        ShowSortOptions="False" ShowSearchBox="False" ShowSummary="False" ShowTitle="False">
         <tlkt:PropertyGrid.PropertyDefinitions>
             <tlkt:PropertyDefinition DisplayOrder="1" DisplayName="Description" TargetProperties="Description"/>
-            <tlkt:PropertyDefinition DisplayOrder="2" DisplayName="Phase" TargetProperties="Phase"/>
+            <tlkt:PropertyDefinition DisplayOrder="2" DisplayName="Turn" TargetProperties="Turn"/>
             <tlkt:PropertyDefinition DisplayOrder="3" DisplayName="Pass" TargetProperties="Pass"/>
-            <tlkt:PropertyDefinition DisplayOrder="4" DisplayName="Initiative" TargetProperties="Initiative"/>
+            <tlkt:PropertyDefinition DisplayOrder="4" DisplayName="Phase" TargetProperties="Phase"/>
         </tlkt:PropertyGrid.PropertyDefinitions>
     </tlkt:PropertyGrid>
 </UserControl>

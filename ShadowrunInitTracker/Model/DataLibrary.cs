@@ -2,12 +2,10 @@
 
 namespace ShadowrunInitTracker.Model
 {
-    public class DataLibrary
+    public static class DataLibrary
     {
-        private DataLibrary() { }
+        public static ObservableCollection<Character> Characters = new ObservableCollection<Character>();
 
-        public static DataLibrary Instance { get; } = new DataLibrary();
-
-        public ObservableCollection<Character> Characters = new ObservableCollection<Character>();
+        public static CombatInstance Combat = new CombatInstance();
     }
 }

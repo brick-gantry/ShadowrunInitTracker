@@ -16,41 +16,10 @@ namespace ShadowrunInitTracker.ViewModel
 
         //private static XmlSerializer combatSerializer = new XmlSerializer(typeof(CombatInstance));
         private static BinaryFormatter combatSerializer = new BinaryFormatter();
-        public static ICommand AddEventCommand = new RoutedCommand();
-        public static ICommand EditEventCommand = new RoutedCommand();
-        public static ICommand DeleteEventCommand = new RoutedCommand();
         public static ICommand StartCombatCommand = new RoutedCommand();
         public static ICommand SaveCombatCommand = new RoutedCommand();
         public static ICommand LoadCombatCommand = new RoutedCommand();
         
-        
-
-        public static void DeleteCharacter(Character toDelete)
-        {
-            DataLibrary.Instance.Characters.Remove(toDelete);
-        }
-
-        public static void AddEvent(CombatInstance combat, CombatInstance.Time now)
-        {
-            var vm = new EventEditViewModel(now);
-            var window = new EventEditWindow(vm);
-            window.ShowInTaskbar = false;
-            window.ShowDialog();
-            if (window.DoSave)
-            {
-                vm.CopyToModel();
-                combat.Events.Add(vm.Model);
-            }
-        }
-
-        public static void DeleteEvent(CombatInstance combat, Event toDelete)
-        {
-            combat.Events.Remove(toDelete);
-        }
-
-
-        
-
         public static void StartCombat()
         {
             //todo implement
