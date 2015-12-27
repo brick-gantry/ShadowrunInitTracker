@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.DataContext>
-        <model:InitPass/>
+        <model:InitiativePass/>
     </UserControl.DataContext>
     <Grid>
         <ListBox ItemsSource="{Binding Mode=OneWay}" SelectedIndex="{Binding CurrentlyActing}">

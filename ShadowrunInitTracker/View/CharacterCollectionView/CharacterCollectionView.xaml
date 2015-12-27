@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="ShadowrunInitTracker.View.CharacterCollectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ShadowrunInitTracker.View"
+             xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel"
+             >
+    <ListView ItemsSource="{Binding Characters}">
+        <ListView.View>
+            <GridView>
+                <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                <GridViewColumn Header="Type" Width="30" DisplayMemberBinding="{Binding Type}"/>
+            </GridView>
+        </ListView.View>
+    </ListView>
+</UserControl>

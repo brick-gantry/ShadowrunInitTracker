@@ -7,7 +7,7 @@
              xmlns:model="clr-namespace:ShadowrunInitTracker.Model"
              mc:Ignorable="d" >
     <UserControl.DataContext>
-        <model:InitPhase/>
+        <model:InitiativeTurn/>
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>

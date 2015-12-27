@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -78,26 +79,76 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\InitPass.cs" />
-    <Compile Include="Model\InitPhase.cs" />
+    <Compile Include="Model\Character.cs" />
+    <Compile Include="Model\CharacterCollection.cs" />
+    <Compile Include="Model\InitiativeStructures\InitiativePass.cs" />
+    <Compile Include="Model\InitiativeStructures\InitiativeTurn.cs" />
+    <Compile Include="Model\DataLibrary.cs" />
+    <Compile Include="Model\InitiativeEntries\InitiativeEntry.cs" />
+    <Compile Include="ViewModel\CharacterCollectionViewModel.cs" />
+    <Compile Include="ViewModel\EventEditViewModel.cs" />
+    <Compile Include="View\CharacterCollectionView\CharacterCollectionView.xaml.cs">
+      <DependentUpon>CharacterCollectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CharacterCollectionView\CharacterCollectionWindow.xaml.cs">
+      <DependentUpon>CharacterCollectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Commands.cs" />
+    <Compile Include="ViewModel\CharacterEditViewModel.cs" />
     <Compile Include="ViewModel\FullInitiativeViewModel.cs" />
-    <Compile Include="View\DecoratedPassPhaseListBox.xaml.cs">
+    <Compile Include="View\CharacterEdit\CharacterEditView.xaml.cs">
+      <DependentUpon>CharacterEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CharacterEdit\CharacterEditWindow.xaml.cs">
+      <DependentUpon>CharacterEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EventEdit\EventEditView.xaml.cs">
+      <DependentUpon>EventEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EventEdit\EventEditWindow.xaml.cs">
+      <DependentUpon>EventEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InitiativeView\DecoratedPassPhaseListBox.xaml.cs">
       <DependentUpon>DecoratedPassPhaseListBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\FullInitiativeView.xaml.cs">
+    <Compile Include="View\InitiativeView\FullInitiativeView.xaml.cs">
       <DependentUpon>FullInitiativeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PhaseGrid.xaml.cs">
+    <Compile Include="View\InitiativeView\PhaseGrid.xaml.cs">
       <DependentUpon>PhaseGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PhasePassListBox.xaml.cs">
+    <Compile Include="View\InitiativeView\PhasePassListBox.xaml.cs">
       <DependentUpon>PhasePassListBox.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\DecoratedPassPhaseListBox.xaml">
+    <Page Include="View\CharacterCollectionView\CharacterCollectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\FullInitiativeView.xaml">
+    <Page Include="View\CharacterEdit\CharacterEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CharacterEdit\CharacterEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CharacterCollectionView\CharacterCollectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EventEdit\EventEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\EventEdit\EventEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\InitiativeView\DecoratedPassPhaseListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InitiativeView\FullInitiativeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -105,25 +156,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Model\Actor.cs" />
+    <Compile Include="Model\InitiativeEntries\Actor.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\ActorCollection.cs" />
-    <Compile Include="Model\Clock.cs" />
+    <Compile Include="Model\InitiativeEntries\ActorCollection.cs" />
+    <Compile Include="Model\CombatInstance.cs" />
     <Compile Include="Model\DiceRoller.cs" />
-    <Compile Include="Model\Event.cs" />
-    <Compile Include="Model\EventCollection.cs" />
+    <Compile Include="Model\InitiativeEntries\Event.cs" />
+    <Compile Include="Model\InitiativeEntries\EventCollection.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\PhaseGrid.xaml">
+    <Page Include="View\InitiativeView\PhaseGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\PhasePassListBox.xaml">
+    <Page Include="View\InitiativeView\PhasePassListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

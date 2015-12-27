@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ShadowrunInitTracker.Model
 {
-    public class InitPass : List<object>
+    public class InitiativePass : List<InitiativeEntry>
     {
-        public object CurrentActor { get; set; }
+        public InitiativeEntry CurrentActor { get; set; }
         public int CurrentActorIndex
         {
             get { return this.IndexOf(CurrentActor); }
@@ -20,7 +20,7 @@ namespace ShadowrunInitTracker.Model
             }
         }
 
-        public InitPass()
+        public InitiativePass()
         {
             /*this.ch += (s, e) =>
             {
@@ -45,25 +45,25 @@ namespace ShadowrunInitTracker.Model
                             return actorA.RolledInit - actorB.RolledInit;
                         if (actorA.Edge != actorB.Edge)
                             return actorA.Edge - actorB.Edge;
-                        if (actorA.CurrentInitiativeSet.Value != actorB.CurrentInitiativeSet.Value)
-                            return actorA.CurrentInitiativeSet.Value - actorB.CurrentInitiativeSet.Value;
+                        if (actorA.CurrentInitiativePhase != actorB.CurrentInitiativePhase)
+                            return actorA.CurrentInitiativePhase - actorB.CurrentInitiativePhase;
                         if (actorA.Reaction != actorB.Reaction)
                             return actorA.Reaction - actorB.Reaction;
                     }
                     else if (b is Event)
                     {
-                        return actorA.RolledInit - eventB.Initiative;
+                        return actorA.RolledInit - eventB.Phase;
                     }
                 }
                 if (a is Event)
                 {
                     if (b is Actor)
                     {
-                        return eventA.Initiative - actorB.RolledInit;
+                        return eventA.Phase - actorB.RolledInit;
                     }
                     else if (b is Event)
                     {
-                        return eventA.Initiative - eventB.Initiative;
+                        return eventA.Phase - eventB.Phase;
                     }
                 }
                 return 0;

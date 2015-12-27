@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ShadowrunInitTracker.View.CharacterEditView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ShadowrunInitTracker.View"
+             xmlns:tlkt="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:viewmodel="clr-namespace:ShadowrunInitTracker.ViewModel"
+             >
+    <tlkt:PropertyGrid Width="400" SelectedObject="{Binding Mode=OneWay}" AutoGenerateProperties="False" IsCategorized="False" 
+                       ShowSortOptions="False" ShowSearchBox="False" ShowSummary="False" ShowTitle="False">
+        <tlkt:PropertyGrid.PropertyDefinitions>
+            <tlkt:PropertyDefinition DisplayOrder="1" DisplayName="Name" TargetProperties="Name"/>
+            <tlkt:PropertyDefinition DisplayOrder="2" DisplayName="Edge" TargetProperties="Edge"/>
+            <tlkt:PropertyDefinition DisplayOrder="3" DisplayName="Reaction" TargetProperties="Reaction"/>
+            <tlkt:PropertyDefinition DisplayOrder="4" DisplayName="Physical Initiative" TargetProperties="PhysicalInitiative"/>
+            <tlkt:PropertyDefinition DisplayOrder="5" DisplayName="Physical Passes" TargetProperties="PhysicalPasses"/>
+            <tlkt:PropertyDefinition DisplayOrder="6" DisplayName="Matrix Initiative" TargetProperties="MatrixInitiative"/>
+            <tlkt:PropertyDefinition DisplayOrder="7" DisplayName="Matrix Passes" TargetProperties="MatrixPasses"/>
+            <tlkt:PropertyDefinition DisplayOrder="8" DisplayName="Astral Initiative" TargetProperties="AstralInitiative"/>
+            <tlkt:PropertyDefinition DisplayOrder="9" DisplayName="Astral Passes" TargetProperties="AstralPasses"/>
+        </tlkt:PropertyGrid.PropertyDefinitions>
+    </tlkt:PropertyGrid>
+</UserControl>

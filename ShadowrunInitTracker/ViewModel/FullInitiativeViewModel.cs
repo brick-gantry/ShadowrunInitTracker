@@ -9,8 +9,8 @@ namespace ShadowrunInitTracker.ViewModel
 {
     public class FullInitiativeViewModel
     {
-        public InitPhase CurrentInit { get; set; }
-        public InitPhase OriginalInit { get; set; }
-        Clock clock = new Clock();
+        public InitiativeTurn CurrentInit { get; set; }
+        public InitiativeTurn OriginalInit { get; set; }
+        CombatInstance clock = new CombatInstance();
     }
 }

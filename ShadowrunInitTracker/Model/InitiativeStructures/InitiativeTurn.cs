@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ShadowrunInitTracker.Model
 {
-    public class InitPhase
+    public class InitiativeTurn
     {
-        public List<InitPass> Passes { get; set; } = new List<InitPass>(4);
+        public List<InitiativePass> Passes { get; set; } = new List<InitiativePass>(4);
         public int CurrentPassNumber { get; set; } = 1;
-        public InitPass CurrentPass { get { return Passes[CurrentPassNumber - 1]; } }
+        public InitiativePass CurrentPass { get { return Passes[CurrentPassNumber - 1]; } }
 
 
         public enum NextResult { NextSelected, LoopBack }
@@ -27,6 +27,7 @@ namespace ShadowrunInitTracker.Model
         public void Clear()
         {
             Passes.ForEach(p => p.Clear());
+            CurrentPassNumber = 1;
         }
     }
 }
