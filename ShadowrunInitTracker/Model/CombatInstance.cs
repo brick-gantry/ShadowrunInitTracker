@@ -9,23 +9,25 @@ namespace ShadowrunInitTracker.Model
     public class CombatInstance
     {
         public ActorCollection Actors = new ActorCollection();
-
         public EventCollection Events = new EventCollection();
 
         public int Turn { get; set; } = 1;
-
         public InitiativeTurn CurrentTurn { get; set; } = new InitiativeTurn();
         public InitiativePass CurrentPass { get { return CurrentTurn.CurrentPass; } }
         
-        public void Next()
+        public enum NextResult { NextActorFound, NoMoreActors }
+        public NextResult Next()
         {
             var result = CurrentTurn.Next();
             if(result == InitiativeTurn.NextResult.LoopBack)
             {
                 Turn++;
                 CurrentTurn.Clear();
-                BuildInit();
+                foreach (var a in Actors)
+                    a.UpdateForNextTurn();
+                return NextResult.NoMoreActors;
             }
+            return NextResult.NextActorFound;
         }
 
         public class Time
@@ -35,27 +37,34 @@ namespace ShadowrunInitTracker.Model
             public int Phase { get; set; }
         }
 
-        public Time Now {  get { return new Time { Turn = Turn, Pass = CurrentTurn.CurrentPassNumber, Phase = CurrentTurn.CurrentPass.CurrentActor.CurrentInitiativePhase }; } }
+        public Time Now
+        {
+            get
+            {
+                return new Time
+                {
+                    Turn = Turn,
+                    Pass = CurrentTurn.CurrentPassNumber,
+                    Phase = CurrentTurn.CurrentPass.CurrentActor.Phase
+                };
+            }
+        }
 
         public void Reset()
         {
             Turn = 1;
             CurrentTurn.Clear();
+            BuildInit();
         }
 
         public void BuildInit()
         {
-            foreach (var a in Actors)
-                a.UpdateForNextPhase();
-
-            //todo roll initiatives
-
             for (int pass = 1; pass <= 4; pass++)
             {
                 foreach (var a in Actors.GetActorsForPass(pass))
-                    CurrentTurn.Passes[pass].Add(a);
+                    CurrentTurn.Passes[pass].Add(new ActorInitiativeEntry(a));
                 foreach (var e in Events.GetEventsForPass(Turn, pass))
-                    CurrentTurn.Passes[pass].Add(e);
+                    CurrentTurn.Passes[pass].Add(new EventInitiativeEntry(e));
             }
         }
     }

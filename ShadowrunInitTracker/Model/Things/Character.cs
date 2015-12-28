@@ -3,11 +3,11 @@ using System.ComponentModel;
 
 namespace ShadowrunInitTracker.Model
 {
+    public enum CharacterType { PC, NPC }
+
     [Serializable]
     public class Character : INotifyPropertyChanged
     {
-        public enum CharacterType { PC, NPC }
-
         string name;
         public string Name { get { return name; } set { name = value; NotifyPropertyChanged("Name"); } }
 

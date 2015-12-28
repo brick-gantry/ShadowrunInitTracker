@@ -11,7 +11,7 @@
     <Grid>
         <TabControl VerticalAlignment="Stretch">
             <TabItem Header="Combat">
-                <local:CombatInitiativeView/>
+                <local:CombatToggleTab/>
             </TabItem>
             <TabItem Header="Characters">
                 <local:CharacterTab  VerticalAlignment="Stretch"/>

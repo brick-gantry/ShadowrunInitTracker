@@ -1,0 +1,185 @@
+﻿using ShadowrunInitTracker.Model;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Forms;
+using System.Windows.Input;
+
+namespace ShadowrunInitTracker.ViewModel
+{
+    public enum CombatMode { Setup, RollingInitiative, Combat }
+    public class ModeVisibilityConverter : IValueConverter
+    {
+        public ModeVisibilityConverter() { }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var currentMode = (CombatMode)value;
+            var targetMode = (CombatMode)parameter;
+            return currentMode == targetMode ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SelectableActor
+    {
+        public bool Selected { get; set; }
+        public Actor Actor { get; set; }
+    }
+    
+    public class CombatViewModel : INotifyPropertyChanged
+    {
+        public CharacterCollection Characters { get { return DataLibrary.Characters; } }
+        public ObservableCollection<SelectableActor> SelectableActors { get; set; } = new ObservableCollection<SelectableActor>();
+        public CombatInstance Combat
+        {
+            get { return DataLibrary.Combat; }
+            set { DataLibrary.Combat = value; }
+        }
+
+
+
+        public CombatViewModel()
+        {
+            BuildAvailableList();
+            Characters.CollectionChanged += Characters_CollectionChanged;
+        }
+
+        ~CombatViewModel()
+        {
+            Characters.CollectionChanged -= Characters_CollectionChanged;
+        }
+
+        #region setup
+        private void Characters_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            BuildAvailableList();
+        }
+
+        public void BuildAvailableList()
+        {
+            SelectableActors.Clear();
+            foreach (var c in DataLibrary.Characters)
+            {
+                SelectableActors.Add(new SelectableActor { Selected = c.Type == CharacterType.PC, Actor = new Actor(c) });
+            }
+        }
+        #endregion
+
+        #region combat
+        private static readonly string combatExtension = "S.I.T. Combat (*.sitco)|*.sitco";
+
+        //private static XmlSerializer combatSerializer = new XmlSerializer(typeof(CombatInstance));
+        private static BinaryFormatter combatSerializer = new BinaryFormatter();
+
+
+
+        public void StartCombat()
+        {
+            Combat.Reset();
+
+            foreach (var a in SelectableActors)
+            {
+                if (a.Selected)
+                    Combat.Actors.Add(a.Actor);
+            }
+
+            CurrentMode = CombatMode.RollingInitiative;
+        }
+
+        public void Next()
+        {
+            Combat.Next();
+        }
+
+        public void AcceptInitiativeRolls()
+        {
+            Next();
+
+            CurrentMode = CombatMode.Combat;
+        }
+
+        public void EndCombat()
+        {
+            //stuff
+
+            CurrentMode = CombatMode.Setup;
+        }
+
+        public void SaveCombat()
+        {
+            try
+            {
+                var dlg = new SaveFileDialog { Filter = combatExtension };
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    using (var outStream = dlg.OpenFile())
+                    {
+                        if (outStream != null)
+                        {
+                            combatSerializer.Serialize(outStream, Combat);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show("Failed to save combat.");
+            }
+        }
+
+        public void LoadCombat()
+        {
+            try
+            {
+                var dlg = new SaveFileDialog { Filter = combatExtension };
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    using (var inStream = dlg.OpenFile())
+                    {
+                        if (inStream != null)
+                        {
+                            Combat = combatSerializer.Deserialize(inStream) as CombatInstance;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show("Failed to load combat.");
+            }
+        }
+        #endregion
+
+        #region toggle
+        CombatMode currentMode = CombatMode.Setup;
+        public CombatMode CurrentMode
+        {
+            get { return currentMode; }
+            set
+            {
+                currentMode = value;
+                NotifyPropertyChanged("CurrentMode");
+            }
+        }
+        #endregion
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

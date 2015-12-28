@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="ShadowrunInitTracker.View.CombatToggleTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ShadowrunInitTracker.View"
+             xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel"
+             >
+    <UserControl.DataContext>
+        <vm:CombatViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <vm:ModeVisibilityConverter x:Key="ModeVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <local:ActorSelectionView Visibility="{Binding CurrentMode, ConverterParameter={x:Static vm:CombatMode.Setup}, Converter={StaticResource ModeVisibilityConverter}}"/>
+        <local:InitiativeRollingView Visibility="{Binding CurrentMode, ConverterParameter={x:Static vm:CombatMode.RollingInitiative}, Converter={StaticResource ModeVisibilityConverter}}"/>
+        <local:CombatInitiativeView Visibility="{Binding CurrentMode, ConverterParameter={x:Static vm:CombatMode.Combat}, Converter={StaticResource ModeVisibilityConverter}}"/>
+    </Grid>
+</UserControl>

@@ -4,7 +4,7 @@ namespace ShadowrunInitTracker.Model
 {
     public static class DataLibrary
     {
-        public static ObservableCollection<Character> Characters = new ObservableCollection<Character>();
+        public static CharacterCollection Characters = new CharacterCollection();
 
         public static CombatInstance Combat = new CombatInstance();
     }

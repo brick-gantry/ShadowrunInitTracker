@@ -8,6 +8,8 @@ namespace ShadowrunInitTracker.Model
 {
     public static class DiceRoller
     {
+        public enum SuccessType { NoGlitch, Glitch, CriticalGlitch }
+
         public class Args
         {
             public int NumDice { get; set; } = 0;
@@ -19,7 +21,7 @@ namespace ShadowrunInitTracker.Model
         public class Result
         {
             public int Hits { get; set; }
-            public bool Glitch { get; set; }
+            public SuccessType Success { get; set; }
         }
 
         static Random r = new Random();
@@ -57,8 +59,14 @@ namespace ShadowrunInitTracker.Model
                         break;
                 }
             }
+            
+            bool glitch = (countGlitch >= Math.Ceiling((double)args.NumDice / 2));
 
-            return new Result { Hits = countHits, Glitch = (countGlitch >= Math.Ceiling((double)args.NumDice / 2)) };
+            return new Result
+            {
+                Hits = countHits,
+                Success = !glitch ? SuccessType.NoGlitch : countHits > 0 ? SuccessType.Glitch : SuccessType.CriticalGlitch
+            };
         }
     }
 }

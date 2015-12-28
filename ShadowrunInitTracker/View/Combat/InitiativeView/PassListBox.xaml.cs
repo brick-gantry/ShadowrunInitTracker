@@ -20,6 +20,14 @@ namespace ShadowrunInitTracker.View
     /// </summary>
     public partial class PassListBox : UserControl
     {
+        public static readonly DependencyProperty TitleProperty =
+            DependencyProperty.Register("Title", typeof(string), typeof(PassListBox));
+        public string Title
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+
         public PassListBox()
         {
             InitializeComponent();

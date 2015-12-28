@@ -10,7 +10,12 @@
         <model:InitiativePass/>
     </UserControl.DataContext>
     <Grid>
-        <ListBox ItemsSource="{Binding Mode=OneWay}" SelectedIndex="{Binding CurrentlyActing}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PassListBox}}}"/>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Mode=OneWay}" SelectedIndex="{Binding CurrentlyActing}">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type model:Actor}">
                     <Grid>
