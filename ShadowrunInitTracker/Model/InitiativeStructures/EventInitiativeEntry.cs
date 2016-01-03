@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ShadowrunInitTracker.Model
 {
+    [Serializable]
     public class EventInitiativeEntry : InitiativeEntry
     {
         public Event Event;
-        public override object Source { get { return Event; } }
+        public override INotifyPropertyChanged Source { get { return Event; } }
 
         public EventInitiativeEntry(Event @event)
         {

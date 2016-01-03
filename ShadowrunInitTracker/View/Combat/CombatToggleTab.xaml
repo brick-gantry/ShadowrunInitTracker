@@ -13,8 +13,8 @@
         <vm:ModeVisibilityConverter x:Key="ModeVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
-        <local:ActorSelectionView Visibility="{Binding CurrentMode, ConverterParameter={x:Static vm:CombatMode.Setup}, Converter={StaticResource ModeVisibilityConverter}}"/>
-        <local:InitiativeRollingView Visibility="{Binding CurrentMode, ConverterParameter={x:Static vm:CombatMode.RollingInitiative}, Converter={StaticResource ModeVisibilityConverter}}"/>
-        <local:CombatInitiativeView Visibility="{Binding CurrentMode, ConverterParameter={x:Static vm:CombatMode.Combat}, Converter={StaticResource ModeVisibilityConverter}}"/>
+        <local:ActorSelectionView x:Name="actorSelectionView" Visibility="{Binding CurrentMode, ConverterParameter={x:Static vm:CombatMode.Setup}, Converter={StaticResource ModeVisibilityConverter}}"/>
+        <local:InitiativeRollingView x:Name="initiativeRollingView" Visibility="{Binding CurrentMode, ConverterParameter={x:Static vm:CombatMode.RollingInitiative}, Converter={StaticResource ModeVisibilityConverter}}"/>
+        <local:CombatInitiativeView x:Name="combatInitiativeView" Visibility="{Binding CurrentMode, ConverterParameter={x:Static vm:CombatMode.Combat}, Converter={StaticResource ModeVisibilityConverter}}"/>
     </Grid>
 </UserControl>

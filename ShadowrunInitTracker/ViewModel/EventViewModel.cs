@@ -6,7 +6,7 @@ namespace ShadowrunInitTracker.ViewModel
 {
     public class EventViewModel : INotifyPropertyChanged
     {
-        public EventCollection Events { get { return DataLibrary.Combat.Events; } }
+        public CombatInstance Combat { get { return DataLibrary.Combat; } }
         Event selectedEvent;
         public Event SelectedEvent
         {
@@ -18,20 +18,17 @@ namespace ShadowrunInitTracker.ViewModel
             }
         }
 
-        public static ICommand AddEventCommand = new RoutedCommand();
-        public static ICommand DeleteEventCommand = new RoutedCommand();
-
         public void AddEvent(CombatInstance.Time eventTime = null)
         {
             Event toAdd = (eventTime != null)
                 ? new Event { Description="<New Event>", Turn = eventTime.Turn, Pass = eventTime.Pass, Phase = eventTime.Phase }
                 : new Event { Description = "<New Event>" };
-            Events.Add(toAdd);
+            Combat.AddEvent(toAdd);
         }
 
         public void DeleteEvent(Event toDelete)
         {
-            Events.Remove(toDelete);
+            Combat.RemoveEvent(toDelete);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

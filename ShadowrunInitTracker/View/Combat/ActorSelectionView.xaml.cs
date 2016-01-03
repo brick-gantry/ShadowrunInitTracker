@@ -17,13 +17,15 @@ namespace ShadowrunInitTracker.View
             InitializeComponent();
         }
 
-        public static ICommand LoadCombatCommand = new RoutedCommand();
+        public static RoutedUICommand LoadCombatCmd = new RoutedUICommand(
+            "Load Combat", "LoadCombatCmd", typeof(ActorSelectionView));
         private void LoadCombat(object sender, ExecutedRoutedEventArgs e)
         {
             vm.LoadCombat();
         }
 
-        public static ICommand StartCombatCommand = new RoutedCommand();
+        public static RoutedUICommand StartCombatCmd = new RoutedUICommand(
+            "Start Combat", "StartCombatCmd", typeof(ActorSelectionView));
         private void StartCombat(object sender, ExecutedRoutedEventArgs e)
         {
             vm.StartCombat();

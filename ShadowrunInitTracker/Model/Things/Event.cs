@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace ShadowrunInitTracker.Model
 {
+    [Serializable]
     public class Event : INotifyPropertyChanged
     {
         string description;

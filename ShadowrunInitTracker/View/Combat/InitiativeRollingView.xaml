@@ -4,25 +4,40 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ShadowrunInitTracker.View"
-             xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel">
+             xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel"
+             xmlns:m="clr-namespace:ShadowrunInitTracker.Model">
     <UserControl.CommandBindings>
-        <CommandBinding Command="local:InitiativeRollingView.RollInitiativeCommand" Executed="RollInitiative"/>
-        <CommandBinding Command="local:InitiativeRollingView.RollEdgeInitiativeCommand" Executed="RollEdgeInitiative"/>
+        <CommandBinding Command="{x:Static local:InitiativeRollingView.RollInitiativeCmd}" Executed="RollInitiative"/>
+        <CommandBinding Command="{x:Static local:InitiativeRollingView.RollEdgeInitiativeCmd}" Executed="RollEdgeInitiative"/>
+        <CommandBinding Command="{x:Static local:InitiativeRollingView.AcceptInitiativesCmd}" Executed="AcceptInitiatives"/>
     </UserControl.CommandBindings>
+    <UserControl.Resources>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type m:GlitchType}" x:Key="GlitchTypeValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="m:GlitchType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
     <Grid>
-
-        <ListView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListView ItemsSource="{Binding Combat.Actors}">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
                         <GridViewColumn Header="Character" Width="150" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Initiative" Width="150">
+                        <GridViewColumn Header="Initiative" Width="300">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBox Width="30" Text="{Binding InitiativeScore}"/>
-                                        <Button Content="Roll" Command="local:InitiativeRollingView.RollInitiativeCommand" CommandParameter="{Binding}"/>
-                                        <Button Content="Roll + Edge" Command="local:InitiativeRollingView.RollEdgeInitiativeCommand" CommandParameter="{Binding}"/>
+                                        <TextBox Width="30" Height="23" Text="{Binding InitiativeScore}"/>
+                                        <ComboBox ItemsSource="{Binding Source={StaticResource GlitchTypeValues}}" 
+                                                  SelectedValue="{Binding InitiativeGlitch}"
+                                                  Width="80"/>
+                                        <Button Content="Roll" Command="{x:Static local:InitiativeRollingView.RollInitiativeCmd}" CommandParameter="{Binding}"/>
+                                        <Button Content="Roll + Edge" Command="{x:Static local:InitiativeRollingView.RollEdgeInitiativeCmd}" CommandParameter="{Binding}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -31,6 +46,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-            
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <Button Content="Accept Initiatives" Command="{x:Static local:InitiativeRollingView.AcceptInitiativesCmd}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

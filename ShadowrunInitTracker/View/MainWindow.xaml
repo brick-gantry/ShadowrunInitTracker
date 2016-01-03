@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ShadowrunInitTracker.View"
         xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel"
         Title="Shadowrun 4th Ed. Initiative Tracker by Rick Gentry" 
-        SizeToContent="WidthAndHeight" MinHeight="300" MinWidth="300" WindowStartupLocation="CenterScreen" 
+        SizeToContent="WidthAndHeight" MinHeight="500" MinWidth="650" WindowStartupLocation="CenterScreen" 
         >
     <Grid>
         <TabControl VerticalAlignment="Stretch">

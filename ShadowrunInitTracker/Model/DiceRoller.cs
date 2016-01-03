@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ShadowrunInitTracker.Model
 {
+    public enum GlitchType { NoGlitch, Glitch, CriticalGlitch }
+
     public static class DiceRoller
     {
-        public enum SuccessType { NoGlitch, Glitch, CriticalGlitch }
 
         public class Args
         {
@@ -21,7 +22,7 @@ namespace ShadowrunInitTracker.Model
         public class Result
         {
             public int Hits { get; set; }
-            public SuccessType Success { get; set; }
+            public GlitchType Glitch { get; set; }
         }
 
         static Random r = new Random();
@@ -65,7 +66,7 @@ namespace ShadowrunInitTracker.Model
             return new Result
             {
                 Hits = countHits,
-                Success = !glitch ? SuccessType.NoGlitch : countHits > 0 ? SuccessType.Glitch : SuccessType.CriticalGlitch
+                Glitch = !glitch ? GlitchType.NoGlitch : countHits > 0 ? GlitchType.Glitch : GlitchType.CriticalGlitch
             };
         }
     }

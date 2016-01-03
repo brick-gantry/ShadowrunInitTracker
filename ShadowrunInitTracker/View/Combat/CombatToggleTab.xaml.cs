@@ -17,6 +17,7 @@ namespace ShadowrunInitTracker.View
             InitializeComponent();
         }
 
-        public static ICommand NextCommand = new RoutedCommand();
+        public static RoutedUICommand NextCmd = new RoutedUICommand(
+            "Next!", "NextCmd", typeof(CombatToggleTab));
     }
 }

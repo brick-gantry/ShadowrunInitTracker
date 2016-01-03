@@ -1,25 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowrunInitTracker.Model
 {
+    [Serializable]
     public abstract class InitiativeEntry : INotifyPropertyChanged
     {
-        public abstract object Source { get; }
+        public abstract INotifyPropertyChanged Source { get; }
+
+        int actionOrder = int.MaxValue;
+        public int ActionOrder
+        {
+            get { return actionOrder; }
+            set
+            {
+                actionOrder = value;
+                NotifyPropertyChanged("ActionOrder");
+                NotifyPropertyChanged("ActionTaken");
+                NotifyPropertyChanged("Phase");
+            }
+        }
 
         bool actionTaken = false;
         public bool ActionTaken
         {
-            get { return ActionTaken; }
-            set
-            {
-                actionTaken = value;
-                NotifyPropertyChanged("ActionTaken");
-            }
+            get { return actionOrder != int.MaxValue; }
         }
 
         public abstract string Description { get; }

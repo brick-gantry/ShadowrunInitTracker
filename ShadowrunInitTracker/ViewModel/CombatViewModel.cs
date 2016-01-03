@@ -46,8 +46,6 @@ namespace ShadowrunInitTracker.ViewModel
             set { DataLibrary.Combat = value; }
         }
 
-
-
         public CombatViewModel()
         {
             BuildAvailableList();
@@ -70,7 +68,9 @@ namespace ShadowrunInitTracker.ViewModel
             SelectableActors.Clear();
             foreach (var c in DataLibrary.Characters)
             {
-                SelectableActors.Add(new SelectableActor { Selected = c.Type == CharacterType.PC, Actor = new Actor(c) });
+                SelectableActors.Add(new SelectableActor {
+                    Selected = true,//c.Type == CharacterType.PC,
+                    Actor = new Actor(c) });
             }
         }
         #endregion
@@ -80,9 +80,7 @@ namespace ShadowrunInitTracker.ViewModel
 
         //private static XmlSerializer combatSerializer = new XmlSerializer(typeof(CombatInstance));
         private static BinaryFormatter combatSerializer = new BinaryFormatter();
-
-
-
+        
         public void StartCombat()
         {
             Combat.Reset();
@@ -90,31 +88,35 @@ namespace ShadowrunInitTracker.ViewModel
             foreach (var a in SelectableActors)
             {
                 if (a.Selected)
-                    Combat.Actors.Add(a.Actor);
+                    Combat.AddActor(a.Actor);
             }
 
             CurrentMode = CombatMode.RollingInitiative;
         }
-
+        
         public void Next()
         {
-            Combat.Next();
+            var result = Combat.Next();
+            if(result == CombatInstance.NextResult.NoMoreActors)
+            {
+                CurrentMode = CombatMode.RollingInitiative;
+            }
         }
-
+        
         public void AcceptInitiativeRolls()
         {
+            Combat.BuildInit();
+
             Next();
 
             CurrentMode = CombatMode.Combat;
         }
-
+        
         public void EndCombat()
         {
-            //stuff
-
             CurrentMode = CombatMode.Setup;
         }
-
+        
         public void SaveCombat()
         {
             try
@@ -137,7 +139,7 @@ namespace ShadowrunInitTracker.ViewModel
                 System.Windows.Forms.MessageBox.Show("Failed to save combat.");
             }
         }
-
+        
         public void LoadCombat()
         {
             try

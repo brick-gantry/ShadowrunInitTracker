@@ -1,9 +1,11 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace ShadowrunInitTracker.Model
 {
     public enum CombatActorMode { Physical, Matrix, Astral }
 
+    [Serializable]
     public class Actor : INotifyPropertyChanged
     {
         public Character Character;
@@ -48,8 +50,8 @@ namespace ShadowrunInitTracker.Model
             set
             {
                 initiativeScore = value;
-                NotifyPropertyChanged("RolledInitiative");
-                NotifyPropertyChanged("CurrentInitiativePhase");
+                NotifyPropertyChanged("InitiativeScore");
+                NotifyPropertyChanged("AdjustedInitiativeScore");
             }
         }
 
@@ -61,11 +63,11 @@ namespace ShadowrunInitTracker.Model
             {
                 woundModifier = value;
                 NotifyPropertyChanged("WoundModifier");
-                NotifyPropertyChanged("CurrentInitiativePhase");
+                NotifyPropertyChanged("AdjustedInitiativeScore");
             }
         }
 
-        public int CurrentInitiativePhase
+        public int AdjustedInitiativeScore
         {
             get
             {
@@ -170,7 +172,7 @@ namespace ShadowrunInitTracker.Model
                         passes = PhysicalPasses;
                         break;
                 }
-                if (InitiativeGlitch == DiceRoller.SuccessType.CriticalGlitch && passes > 1)
+                if (InitiativeGlitch == GlitchType.CriticalGlitch && passes > 1)
                     passes--;
                 return passes;
             }
@@ -181,8 +183,8 @@ namespace ShadowrunInitTracker.Model
             TurnMode = CurrentMode;
         }
 
-        DiceRoller.SuccessType initiativeGlitch = DiceRoller.SuccessType.NoGlitch;
-        public DiceRoller.SuccessType InitiativeGlitch
+        GlitchType initiativeGlitch = GlitchType.NoGlitch;
+        public GlitchType InitiativeGlitch
         {
             get { return initiativeGlitch; }
             set
@@ -211,7 +213,7 @@ namespace ShadowrunInitTracker.Model
                 args.NumDice += Edge;
             var result = DiceRoller.Roll(args);
             InitiativeScore = result.Hits + TurnInitiativeAttribute;
-            InitiativeGlitch = result.Success;
+            InitiativeGlitch = result.Glitch;
         }
 
         #region character stuff

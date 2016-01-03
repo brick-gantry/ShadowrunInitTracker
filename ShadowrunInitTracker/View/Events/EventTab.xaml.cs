@@ -16,12 +16,16 @@ namespace ShadowrunInitTracker.View
         }
 
         EventViewModel vm { get { return DataContext as EventViewModel; } }
-
+        
+        public static RoutedUICommand AddEventCmd = new RoutedUICommand(
+            "Add Event", "AddEventCmd", typeof(EventTab));
         private void AddEvent(object sender, ExecutedRoutedEventArgs e)
         {
             vm.AddEvent();
         }
 
+        public static RoutedUICommand DeleteEventCmd = new RoutedUICommand(
+            "Delete Event", "DeleteEventCmd", typeof(EventTab));
         private void DeleteEvent(object sender, ExecutedRoutedEventArgs e)
         {
             vm.DeleteEvent(e.Parameter as Event);

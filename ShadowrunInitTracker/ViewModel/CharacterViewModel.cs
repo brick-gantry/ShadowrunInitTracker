@@ -26,11 +26,6 @@ namespace ShadowrunInitTracker.ViewModel
             }
         }
 
-        public static ICommand AddCharacterCommand = new RoutedCommand();
-        public static ICommand DeleteCharacterCommand = new RoutedCommand();
-        public static ICommand ImportCharactersCommand = new RoutedCommand();
-        public static ICommand ExportCharactersCommand = new RoutedCommand();
-
         public void AddCharacter()
         {
             Character newCharacter = new Character { Name = "<unnamed character>" };

@@ -4,15 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ShadowrunInitTracker.View"
-             xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel">
+             xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel"
+             xmlns:m="clr-namespace:ShadowrunInitTracker.Model">
     <UserControl.DataContext>
         <vm:CharacterViewModel/>
     </UserControl.DataContext>
     <UserControl.CommandBindings>
-        <CommandBinding Command="vm:CharacterViewModel.AddCharacterCommand" Executed="AddCharacter"/>
-        <CommandBinding Command="vm:CharacterViewModel.DeleteCharacterCommand" Executed="DeleteCharacter"/>
-        <CommandBinding Command="vm:CharacterViewModel.ExportCharactersCommand" Executed="ExportCharacters"/>
-        <CommandBinding Command="vm:CharacterViewModel.ImportCharactersCommand" Executed="ImportCharacters"/>
+        <CommandBinding Command="{x:Static local:CharacterTab.AddCharacterCmd}" Executed="AddCharacter"/>
+        <CommandBinding Command="{x:Static local:CharacterTab.DeleteCharacterCmd}" Executed="DeleteCharacter"/>
+        <CommandBinding Command="{x:Static local:CharacterTab.ExportCharactersCmd}" Executed="ExportCharacters"/>
+        <CommandBinding Command="{x:Static local:CharacterTab.ImportCharactersCmd}" Executed="ImportCharacters"/>
     </UserControl.CommandBindings>
     <Grid>
         <Grid.ColumnDefinitions>

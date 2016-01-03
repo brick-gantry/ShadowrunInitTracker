@@ -15,7 +15,6 @@ namespace Tests
             InitiativePass pass = new InitiativePass();
             pass.Add(new ActorInitiativeEntry(a));
             pass.Add(new ActorInitiativeEntry(b));
-            pass.Sort();
 
             Assert.AreEqual("B", (pass[0].Source as Actor).Name);
         }
@@ -23,12 +22,11 @@ namespace Tests
         [TestMethod]
         public void CriticalGlitchTest()
         {
-            Actor a = new Actor { Name = "A", InitiativeScore = 5, InitiativeGlitch = DiceRoller.SuccessType.CriticalGlitch };
+            Actor a = new Actor { Name = "A", InitiativeScore = 5, InitiativeGlitch = GlitchType.CriticalGlitch };
             Actor b = new Actor { Name = "B", InitiativeScore = 5 };
             InitiativePass pass = new InitiativePass();
             pass.Add(new ActorInitiativeEntry(a));
             pass.Add(new ActorInitiativeEntry(b));
-            pass.Sort();
 
             Assert.AreEqual("B", (pass[0].Source as Actor).Name);
         }
@@ -36,12 +34,11 @@ namespace Tests
         [TestMethod]
         public void GlitchTest()
         {
-            Actor a = new Actor { Name = "A", InitiativeScore = 5, InitiativeGlitch = DiceRoller.SuccessType.Glitch };
+            Actor a = new Actor { Name = "A", InitiativeScore = 5, InitiativeGlitch = GlitchType.Glitch };
             Actor b = new Actor { Name = "B", InitiativeScore = 5 };
             InitiativePass pass = new InitiativePass();
             pass.Add(new ActorInitiativeEntry(a));
             pass.Add(new ActorInitiativeEntry(b));
-            pass.Sort();
 
             Assert.AreEqual("B", (pass[0].Source as Actor).Name);
         }
@@ -54,7 +51,6 @@ namespace Tests
             InitiativePass pass = new InitiativePass();
             pass.Add(new ActorInitiativeEntry(a));
             pass.Add(new ActorInitiativeEntry(b));
-            pass.Sort();
 
             Assert.AreEqual("B", (pass[0].Source as Actor).Name);
         }
@@ -67,7 +63,6 @@ namespace Tests
             InitiativePass pass = new InitiativePass();
             pass.Add(new ActorInitiativeEntry(a));
             pass.Add(new ActorInitiativeEntry(b));
-            pass.Sort();
 
             Assert.AreEqual("B", (pass[0].Source as Actor).Name);
         }
@@ -80,7 +75,6 @@ namespace Tests
             InitiativePass pass = new InitiativePass();
             pass.Add(new ActorInitiativeEntry(a));
             pass.Add(new ActorInitiativeEntry(b));
-            pass.Sort();
 
             Assert.AreEqual("B", (pass[0].Source as Actor).Name);
         }

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
-namespace ShadowrunInitTracker.Model{
+namespace ShadowrunInitTracker.Model
+{
+    [Serializable]
     public class ActorInitiativeEntry : InitiativeEntry
     {
         Actor Actor;
-        public override object Source { get { return Actor; } }
+        public override INotifyPropertyChanged Source { get { return Actor; } }
 
         public ActorInitiativeEntry(Actor actor)
         {
@@ -48,9 +47,9 @@ namespace ShadowrunInitTracker.Model{
         {
             get
             {
-                if(Actor.InitiativeGlitch == DiceRoller.SuccessType.CriticalGlitch)
+                if(Actor.InitiativeGlitch == GlitchType.CriticalGlitch)
                     return string.Format("{0} ({1})", "CG", Actor.WoundModifier);
-                return string.Format("{0} ({1})", Actor.CurrentInitiativePhase, Actor.WoundModifier);
+                return string.Format("{0} ({1})", Actor.AdjustedInitiativeScore, Actor.WoundModifier);
             }
         }
 
@@ -58,7 +57,7 @@ namespace ShadowrunInitTracker.Model{
         {
             get
             {
-                return Actor.CurrentInitiativePhase;
+                return Actor.AdjustedInitiativeScore;
             }
         }
     }

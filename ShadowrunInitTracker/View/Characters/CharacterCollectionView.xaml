@@ -18,8 +18,8 @@
         <ListView ItemsSource="{Binding Characters}" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedCharacter}">
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Add" Command="vm:CharacterViewModel.AddCharacterCommand"/>
-                    <MenuItem Header="Delete" Command="vm:CharacterViewModel.DeleteCharacterCommand" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+                    <MenuItem Header="Add" Command="{x:Static local:CharacterTab.AddCharacterCmd}"/>
+                    <MenuItem Header="Delete" Command="{x:Static local:CharacterTab.DeleteCharacterCmd}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
@@ -29,7 +29,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Import" Grid.Row="1" Command="vm:CharacterViewModel.ImportCharactersCommand"/>
-        <Button Content="Export" Grid.Row="1" Grid.Column="1" Command="vm:CharacterViewModel.ExportCharactersCommand"/>
+        <Button Content="Import" Grid.Row="1" Command="{x:Static local:CharacterTab.ImportCharactersCmd}"/>
+        <Button Content="Export" Grid.Row="1" Grid.Column="1" Command="{x:Static local:CharacterTab.ExportCharactersCmd}"/>
     </Grid>
 </UserControl>

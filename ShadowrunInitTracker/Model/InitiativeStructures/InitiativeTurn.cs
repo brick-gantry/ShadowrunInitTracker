@@ -1,33 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowrunInitTracker.Model
 {
+    [Serializable]
     public class InitiativeTurn
     {
-        public List<InitiativePass> Passes { get; set; } = new List<InitiativePass>(4);
+        public int TurnNumber { get; set; } = 1;
+
+        public Dictionary<int, InitiativePass> Passes { get; } = 
+            new Dictionary<int, InitiativePass> {
+                { 1, new InitiativePass() },
+                { 2, new InitiativePass() },
+                { 3, new InitiativePass() },
+                { 4, new InitiativePass() } };
         public int CurrentPassNumber { get; set; } = 1;
-        public InitiativePass CurrentPass { get { return Passes[CurrentPassNumber - 1]; } }
-
-
+        public InitiativePass CurrentPass { get { return Passes[CurrentPassNumber]; } }
+        
         public enum NextResult { NextSelected, LoopBack }
         public NextResult Next()
         {
-            CurrentPassNumber++;
+            var result = CurrentPass.Next();
+            switch (result)
+            {
+                case InitiativePass.NextResult.NextSelected:
+                    return NextResult.NextSelected;
+                case InitiativePass.NextResult.NoneSelected:
+                default:
+                    CurrentPassNumber++;
 
-            if(CurrentPassNumber > 4)
-                CurrentPassNumber = 1;
-
-            return (CurrentPassNumber == 1) ? NextResult.LoopBack : NextResult.NextSelected;
+                    if (CurrentPassNumber > 4)
+                    {
+                        CurrentPassNumber = 1;
+                        TurnNumber++;
+                        return NextResult.LoopBack;
+                    }
+                    return Next();
+            }
         }
 
         public void Clear()
         {
-            Passes.ForEach(p => p.Clear());
+            Passes.Values.ToList().ForEach(p => p.Clear());
             CurrentPassNumber = 1;
+            TurnNumber = 1;
         }
     }
 }

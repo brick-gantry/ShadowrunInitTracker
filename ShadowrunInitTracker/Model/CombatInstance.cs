@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowrunInitTracker.Model
 {
+    [Serializable]
     public class CombatInstance
     {
-        public ActorCollection Actors = new ActorCollection();
-        public EventCollection Events = new EventCollection();
+        public ActorCollection Actors { get; set; } = new ActorCollection();
+        public InitiativePass DelayingActors { get; set; } = new InitiativePass();
+        public InitiativePass AllActors { get; set; } = new InitiativePass();
+        public EventCollection Events { get; set; } = new EventCollection();
 
-        public int Turn { get; set; } = 1;
-        public InitiativeTurn CurrentTurn { get; set; } = new InitiativeTurn();
+        public InitiativeTurn CurrentTurn { get; } = new InitiativeTurn();
+        public int CurrentTurnNumber { get { return CurrentTurn.TurnNumber; } }
         public InitiativePass CurrentPass { get { return CurrentTurn.CurrentPass; } }
+        public InitiativeEntry CurrentEntry { get { return CurrentPass.CurrentEntry; } }
         
         public enum NextResult { NextActorFound, NoMoreActors }
         public NextResult Next()
@@ -21,7 +21,6 @@ namespace ShadowrunInitTracker.Model
             var result = CurrentTurn.Next();
             if(result == InitiativeTurn.NextResult.LoopBack)
             {
-                Turn++;
                 CurrentTurn.Clear();
                 foreach (var a in Actors)
                     a.UpdateForNextTurn();
@@ -43,18 +42,19 @@ namespace ShadowrunInitTracker.Model
             {
                 return new Time
                 {
-                    Turn = Turn,
+                    Turn = CurrentTurn.TurnNumber,
                     Pass = CurrentTurn.CurrentPassNumber,
-                    Phase = CurrentTurn.CurrentPass.CurrentActor.Phase
+                    Phase = CurrentTurn.CurrentPass.CurrentEntry.Phase
                 };
             }
         }
 
         public void Reset()
         {
-            Turn = 1;
             CurrentTurn.Clear();
-            BuildInit();
+            Actors.Clear();
+            DelayingActors.Clear();
+            Events.Clear();
         }
 
         public void BuildInit()
@@ -63,8 +63,71 @@ namespace ShadowrunInitTracker.Model
             {
                 foreach (var a in Actors.GetActorsForPass(pass))
                     CurrentTurn.Passes[pass].Add(new ActorInitiativeEntry(a));
-                foreach (var e in Events.GetEventsForPass(Turn, pass))
+                foreach (var e in Events.GetEventsForPass(CurrentTurnNumber, pass))
                     CurrentTurn.Passes[pass].Add(new EventInitiativeEntry(e));
+            }
+        }
+
+        public void AddActor(Actor toAdd)
+        {
+            Actors.Add(toAdd);
+            AllActors.Add(new ActorInitiativeEntry(toAdd));
+            toAdd.PropertyChanged += Actor_PropertyChanged;
+        }
+
+        private void Actor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var changed = sender as Actor;
+            switch(e.PropertyName)
+            {
+                case "Delaying":
+                    if(changed.Delaying)
+                    {
+                        DelayingActors.Add(new ActorInitiativeEntry(changed));
+                        foreach(var pass in CurrentTurn.Passes.Values)
+                        {
+                            pass.RemoveWhereSource(changed);
+                        }
+                    }
+                    else
+                    {
+                        DelayingActors.RemoveWhereSource(changed);
+                        CurrentTurn.CurrentPass.AddImmediate(new ActorInitiativeEntry(changed));
+                        for (int pass = CurrentTurn.CurrentPassNumber+1; pass <= changed.TurnInitiativePasses; pass++)
+                        {
+                            CurrentTurn.Passes[pass].Add(new ActorInitiativeEntry(changed));
+                        }
+                    }
+                    break;
+            }
+        }
+
+        public void RemoveActor(Actor toRemove)
+        {
+            Actors.Remove(toRemove);
+            AllActors.RemoveWhereSource(toRemove);
+            DelayingActors.RemoveWhereSource(toRemove);
+            foreach (var pass in CurrentTurn.Passes.Values)
+            {
+                pass.RemoveWhereSource(toRemove);
+            }
+        }
+
+        public void AddEvent(Event toAdd)
+        {
+            Events.Add(toAdd);
+            if(toAdd.Turn == CurrentTurnNumber)
+            {
+                CurrentTurn.Passes[toAdd.Pass].Add(new EventInitiativeEntry(toAdd));
+            }
+        }
+
+        public void RemoveEvent(Event toRemove)
+        {
+            Events.Remove(toRemove);
+            foreach (var pass in CurrentTurn.Passes.Values)
+            {
+                pass.RemoveWhereSource(toRemove);
             }
         }
     }

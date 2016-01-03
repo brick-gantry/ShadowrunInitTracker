@@ -17,21 +17,30 @@ namespace ShadowrunInitTracker.View
 
         CharacterViewModel vm { get { return DataContext as CharacterViewModel; } }
 
+
+        public static RoutedUICommand AddCharacterCmd = new RoutedUICommand(
+            "Add Character", "AddCharacterCmd", typeof(CharacterTab));
         private void AddCharacter(object sender, ExecutedRoutedEventArgs e)
         {
             vm.AddCharacter();
         }
 
+        public static RoutedUICommand DeleteCharacterCmd = new RoutedUICommand(
+            "Delete Character", "DeleteCharacterCmd", typeof(CharacterTab));
         private void DeleteCharacter(object sender, ExecutedRoutedEventArgs e)
         {
             vm.DeleteCharacter(e.Parameter as Character);
         }
 
+        public static RoutedUICommand ImportCharactersCmd = new RoutedUICommand(
+            "Import Characters", "ImportCharactersCmd", typeof(CharacterTab));
         private void ImportCharacters(object sender, ExecutedRoutedEventArgs e)
         {
             vm.ImportCharacterSet(DataLibrary.Characters);
         }
 
+        public static RoutedUICommand ExportCharactersCmd = new RoutedUICommand(
+            "Export Characters", "ExportCharactersCmd", typeof(CharacterTab));
         private void ExportCharacters(object sender, ExecutedRoutedEventArgs e)
         {
             vm.ExportCharacterSet(DataLibrary.Characters);

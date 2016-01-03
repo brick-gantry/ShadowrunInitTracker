@@ -9,8 +9,8 @@
         <vm:EventViewModel/>
     </UserControl.DataContext>
     <UserControl.CommandBindings>
-        <CommandBinding Command="vm:EventViewModel.AddEventCommand" Executed="AddEvent"/>
-        <CommandBinding Command="vm:EventViewModel.DeleteEventCommand" Executed="DeleteEvent"/>
+        <CommandBinding Command="{x:Static local:EventTab.AddEventCmd}" Executed="AddEvent"/>
+        <CommandBinding Command="{x:Static local:EventTab.AddEventCmd}" Executed="DeleteEvent"/>
     </UserControl.CommandBindings>
     <Grid>
         <Grid.ColumnDefinitions>

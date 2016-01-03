@@ -8,8 +8,8 @@
     <ListView x:Name="EventList" ItemsSource="{Binding Events}" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedEvent}">
         <ListView.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Add" Command="vm:EventViewModel.AddEventCommand"/>
-                <MenuItem Header="Delete" Command="vm:EventViewModel.DeleteEventCommand" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+                <MenuItem Header="Add" Command="{x:Static local:EventTab.AddEventCmd}"/>
+                <MenuItem Header="Delete" Command="{x:Static local:EventTab.DeleteEventCmd}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
             </ContextMenu>
         </ListView.ContextMenu>
         <ListView.View>

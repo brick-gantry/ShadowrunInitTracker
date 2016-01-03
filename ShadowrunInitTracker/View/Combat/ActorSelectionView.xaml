@@ -7,8 +7,8 @@
              xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel"
              xmlns:m="clr-namespace:ShadowrunInitTracker.Model">
     <UserControl.CommandBindings>
-        <CommandBinding Command="vm:CombatViewModel.StartCombatCommand" Executed="StartCombat"/>
-        <CommandBinding Command="vm:CombatViewModel.LoadCombatCommand" Executed="LoadCombat"/>
+        <CommandBinding Command="{x:Static local:ActorSelectionView.LoadCombatCmd}" Executed="LoadCombat"/>
+        <CommandBinding Command="{x:Static local:ActorSelectionView.StartCombatCmd}" Executed="StartCombat"/>
     </UserControl.CommandBindings>
     <UserControl.Resources>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type m:CombatActorMode}" x:Key="CombatActorModeValues">
@@ -55,8 +55,8 @@
             </ListView.View>
         </ListView>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-            <Button Content="Load" Command="vm:CombatViewModel.LoadCombatCommand"/>
-            <Button Content="Start" Command="vm:CombatViewModel.StartCombatCommand"/>
+            <Button Content="Load" Command="{x:Static local:ActorSelectionView.LoadCombatCmd}"/>
+            <Button Content="Start" Command="{x:Static local:ActorSelectionView.StartCombatCmd}"/>
         </StackPanel>
     </Grid>
 </UserControl>
