@@ -7,6 +7,7 @@ namespace ShadowrunInitTracker.ViewModel
     public class EventViewModel : INotifyPropertyChanged
     {
         public CombatInstance Combat { get { return DataLibrary.Combat; } }
+        public EventCollection Events { get { return Combat.Events; } }
         Event selectedEvent;
         public Event SelectedEvent
         {

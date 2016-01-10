@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace ShadowrunInitTracker.View
 {
@@ -23,6 +24,11 @@ namespace ShadowrunInitTracker.View
                     CharacterTab.ImportCharactersCmd.Execute(null, CharactersTab);
                     break;
             }
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Console.WriteLine("{0} x {1}", this.Width, this.Height);
         }
     }
 }

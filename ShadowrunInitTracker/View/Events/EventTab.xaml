@@ -10,7 +10,7 @@
     </UserControl.DataContext>
     <UserControl.CommandBindings>
         <CommandBinding Command="{x:Static local:EventTab.AddEventCmd}" Executed="AddEvent"/>
-        <CommandBinding Command="{x:Static local:EventTab.AddEventCmd}" Executed="DeleteEvent"/>
+        <CommandBinding Command="{x:Static local:EventTab.DeleteEventCmd}" Executed="DeleteEvent"/>
     </UserControl.CommandBindings>
     <Grid>
         <Grid.ColumnDefinitions>
