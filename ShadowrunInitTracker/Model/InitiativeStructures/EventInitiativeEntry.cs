@@ -10,12 +10,13 @@ namespace ShadowrunInitTracker.Model
     [Serializable]
     public class EventInitiativeEntry : InitiativeEntry
     {
-        public Event Event;
-        public override INotifyPropertyChanged Source { get { return Event; } }
+        Event @event;
+        public override INotifyPropertyChanged Source { get { return @event; } }
+        public Event Event { get { return @event; } }
 
         public EventInitiativeEntry(Event @event)
         {
-            Event = @event;
+            this.@event = @event;
             Event.PropertyChanged += Event_PropertyChanged;
         }
 

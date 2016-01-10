@@ -6,11 +6,6 @@
              xmlns:local="clr-namespace:ShadowrunInitTracker.View"
              xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel"
              xmlns:m="clr-namespace:ShadowrunInitTracker.Model">
-    <UserControl.CommandBindings>
-        <CommandBinding Command="{x:Static local:InitiativeRollingView.RollInitiativeCmd}" Executed="RollInitiative"/>
-        <CommandBinding Command="{x:Static local:InitiativeRollingView.RollEdgeInitiativeCmd}" Executed="RollEdgeInitiative"/>
-        <CommandBinding Command="{x:Static local:InitiativeRollingView.AcceptInitiativesCmd}" Executed="AcceptInitiatives"/>
-    </UserControl.CommandBindings>
     <UserControl.Resources>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type m:GlitchType}" x:Key="GlitchTypeValues">
             <ObjectDataProvider.MethodParameters>
@@ -36,8 +31,8 @@
                                         <ComboBox ItemsSource="{Binding Source={StaticResource GlitchTypeValues}}" 
                                                   SelectedValue="{Binding InitiativeGlitch}"
                                                   Width="80"/>
-                                        <Button Content="Roll" Command="{x:Static local:InitiativeRollingView.RollInitiativeCmd}" CommandParameter="{Binding}"/>
-                                        <Button Content="Roll + Edge" Command="{x:Static local:InitiativeRollingView.RollEdgeInitiativeCmd}" CommandParameter="{Binding}"/>
+                                        <Button Content="Roll" Command="{x:Static local:CombatToggleTab.RollInitiativeCmd}" CommandParameter="{Binding}"/>
+                                        <Button Content="Roll + Edge" Command="{x:Static local:CombatToggleTab.RollEdgeInitiativeCmd}" CommandParameter="{Binding}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -47,7 +42,7 @@
             </ListView.View>
         </ListView>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-            <Button Content="Accept Initiatives" Command="{x:Static local:InitiativeRollingView.AcceptInitiativesCmd}"/>
+            <Button Content="Accept Initiatives" Command="{x:Static local:CombatToggleTab.AcceptInitiativesCmd}"/>
         </StackPanel>
     </Grid>
 </UserControl>

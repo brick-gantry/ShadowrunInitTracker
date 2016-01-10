@@ -8,7 +8,7 @@ namespace ShadowrunInitTracker.Model
     {
         public abstract INotifyPropertyChanged Source { get; }
 
-        int actionOrder = int.MaxValue;
+        /*int actionOrder = int.MaxValue;
         public int ActionOrder
         {
             get { return actionOrder; }
@@ -16,15 +16,31 @@ namespace ShadowrunInitTracker.Model
             {
                 actionOrder = value;
                 NotifyPropertyChanged("ActionOrder");
-                NotifyPropertyChanged("ActionTaken");
                 NotifyPropertyChanged("Phase");
             }
-        }
+        }*/
+
+        /*public enum QueueCategory { ActionTaken, TakingAction, ResumingAction, Waiting };
+        QueueCategory mode;
+        public QueueCategory Mode
+        {
+            get { return mode; }
+            set
+            {
+
+            }
+        }*/
+
 
         bool actionTaken = false;
         public bool ActionTaken
         {
-            get { return actionOrder != int.MaxValue; }
+            get { return actionTaken; }
+            set
+            {
+                actionTaken = value;
+                NotifyPropertyChanged("ActionTaken");
+            }
         }
 
         public abstract string Description { get; }
@@ -36,6 +52,11 @@ namespace ShadowrunInitTracker.Model
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public override string ToString()
+        {
+            return Description;
         }
     }
 }

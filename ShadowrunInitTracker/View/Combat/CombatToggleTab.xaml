@@ -9,6 +9,22 @@
     <UserControl.DataContext>
         <vm:CombatViewModel/>
     </UserControl.DataContext>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.LoadCombatCmd}" Executed="LoadCombat"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.SaveCombatCmd}" Executed="SaveCombat"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.StartCombatCmd}" Executed="StartCombat"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.EndCombatCmd}" Executed="EndCombat"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.RollInitiativeCmd}" Executed="RollInitiative"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.RollEdgeInitiativeCmd}" Executed="RollEdgeInitiative"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.AcceptInitiativesCmd}" Executed="AcceptInitiatives"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.NextCmd}" Executed="Next"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.DelayActorCmd}" Executed="DelayActor"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.ResumeActorCmd}" Executed="ResumeActor"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.RemoveEntryCmd}" Executed="RemoveEntry"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.AddActorCmd}" Executed="AddActor"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.RemoveActorCmd}" Executed="RemoveActor"/>
+        <CommandBinding Command="{x:Static local:CombatToggleTab.EditWoundCmd}" Executed="EditWound"/>
+    </UserControl.CommandBindings>
     <UserControl.Resources>
         <vm:ModeVisibilityConverter x:Key="ModeVisibilityConverter"/>
     </UserControl.Resources>

@@ -36,14 +36,14 @@ namespace ShadowrunInitTracker.View
             "Import Characters", "ImportCharactersCmd", typeof(CharacterTab));
         private void ImportCharacters(object sender, ExecutedRoutedEventArgs e)
         {
-            vm.ImportCharacterSet(DataLibrary.Characters);
+            vm.ImportAllCharacters();
         }
 
         public static RoutedUICommand ExportCharactersCmd = new RoutedUICommand(
             "Export Characters", "ExportCharactersCmd", typeof(CharacterTab));
         private void ExportCharacters(object sender, ExecutedRoutedEventArgs e)
         {
-            vm.ExportCharacterSet(DataLibrary.Characters);
+            vm.ExportAllCharacters();
         }
     }
 }

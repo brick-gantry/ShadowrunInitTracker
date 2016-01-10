@@ -6,12 +6,6 @@
              xmlns:local="clr-namespace:ShadowrunInitTracker.View"
              xmlns:vm="clr-namespace:ShadowrunInitTracker.ViewModel"
              mc:Ignorable="d">
-    <UserControl.CommandBindings>
-        <CommandBinding Command="{x:Static local:CombatInitiativeView.NextCmd}" Executed="Next"/>
-        <CommandBinding Command="{x:Static local:CombatInitiativeView.SaveCombatCmd}" Executed="SaveCombat"/>
-        <CommandBinding Command="{x:Static local:CombatInitiativeView.EndCombatCmd}" Executed="EndCombat"/>
-        <CommandBinding Command="{x:Static local:CombatInitiativeView.DelayActorCmd}" Executed="DelayActor"/>
-    </UserControl.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -34,13 +28,13 @@
         <local:PassListView Title="Pass 2" Grid.Column="1" Grid.Row="0" InitiativePass="{Binding Combat.CurrentTurn.Passes[2]}"/>
         <local:PassListView Title="Pass 3" Grid.Column="0" Grid.Row="1" InitiativePass="{Binding Combat.CurrentTurn.Passes[3]}"/>
         <local:PassListView Title="Pass 4" Grid.Column="1" Grid.Row="1" InitiativePass="{Binding Combat.CurrentTurn.Passes[4]}"/>
-        <local:AllActorsListView Title="All Actors" Grid.Column="2" Grid.Row="0" ItemsSource="{Binding Combat.AllActors}"/>
-        <local:DelayingListView Title="Delaying Actors" Grid.Column="2" Grid.Row="1" ItemsSource="{Binding Combat.DelayingActors}"/>
+        <local:AllActorsListView Title="All Actors" Grid.Column="2" Grid.Row="0" EntryCollection="{Binding Combat.AllActors}"/>
+        <local:DelayingListView Title="Delaying Actors" Grid.Column="2" Grid.Row="1" EntryCollection="{Binding Combat.DelayingActors}"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="3">
-            <Button Content="Save" Command="{x:Static local:CombatInitiativeView.SaveCombatCmd}"/>
-            <Button Content="End" Command="{x:Static local:CombatInitiativeView.EndCombatCmd}"/>
-            <Button Content="Delay" Command="{x:Static local:CombatInitiativeView.DelayActorCmd}"/>
-            <Button Content="Next" Command="{x:Static local:CombatInitiativeView.NextCmd}"/>
+            <Button Content="Delay Action" Command="{x:Static local:CombatToggleTab.DelayActorCmd}"/>
+            <Button Content="Next Entry" Command="{x:Static local:CombatToggleTab.NextCmd}"/>
+            <Button Content="Take Delayed Action" Command="{x:Static local:CombatToggleTab.ResumeActorCmd}"/>
+            <Button Content="End Combat" Command="{x:Static local:CombatToggleTab.EndCombatCmd}"/>
         </StackPanel>
     </Grid>
 </UserControl>

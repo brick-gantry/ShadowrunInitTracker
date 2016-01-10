@@ -14,13 +14,19 @@
         <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PassListView}}}"/>
         <ListView Grid.Row="1" 
                   ItemsSource="{Binding InitiativePass, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PassListView}}}" 
-                  SelectedItem="{Binding InitiativePass.CurrentEntry, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PassListView}}}" 
-                  SelectionMode="Single">
+                  SelectedValue="{Binding InitiativePass.CurrentEntry, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PassListView}}}" 
+                  SelectionMode="Single" IsTextSearchEnabled="False">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Focusable" Value="False"/>
                 </Style>
             </ListView.ItemContainerStyle>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Remove" Command="{x:Static local:CombatToggleTab.RemoveEntryCmd}"/>
+                    <MenuItem Header="EditWoundCmd" Command="{x:Static local:CombatToggleTab.EditWoundCmd}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridView.Columns>

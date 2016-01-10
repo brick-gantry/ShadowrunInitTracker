@@ -16,28 +16,5 @@ namespace ShadowrunInitTracker.View
         {
             InitializeComponent();
         }
-
-        public static RoutedUICommand RollInitiativeCmd = new RoutedUICommand(
-            "Roll Actor Initiative", "RollInitiativeCmd", typeof(InitiativeRollingView));
-        private void RollInitiative(object sender, ExecutedRoutedEventArgs e)
-        {
-            Actor a = e.Parameter as Actor;
-            a.RollInit(false);
-        }
-
-        public static RoutedUICommand RollEdgeInitiativeCmd = new RoutedUICommand(
-            "Roll Actor Initiative w/ Edge", "RollEdgeInitiativeCmd", typeof(InitiativeRollingView));
-        private void RollEdgeInitiative(object sender, ExecutedRoutedEventArgs e)
-        {
-            Actor a = e.Parameter as Actor;
-            a.RollInit(true);
-        }
-
-        public static RoutedUICommand AcceptInitiativesCmd = new RoutedUICommand(
-            "Accept Initiatives", "AcceptInitiativesCmd", typeof(InitiativeRollingView));
-        private void AcceptInitiatives(object sender, ExecutedRoutedEventArgs e)
-        {
-            vm.AcceptInitiativeRolls();
-        }
     }
 }

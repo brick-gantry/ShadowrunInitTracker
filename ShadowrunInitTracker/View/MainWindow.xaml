@@ -11,13 +11,13 @@
     <Grid>
         <TabControl VerticalAlignment="Stretch">
             <TabItem Header="Combat">
-                <local:CombatToggleTab/>
+                <local:CombatToggleTab x:Name="CombatTab"/>
             </TabItem>
             <TabItem Header="Characters">
-                <local:CharacterTab  VerticalAlignment="Stretch"/>
+                <local:CharacterTab  x:Name="CharactersTab" VerticalAlignment="Stretch"/>
             </TabItem>
             <TabItem Header="Events">
-                <local:EventTab VerticalAlignment="Stretch"/>
+                <local:EventTab x:Name="EventsTab" VerticalAlignment="Stretch"/>
             </TabItem>
         </TabControl>
     </Grid>

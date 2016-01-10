@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ShadowrunInitTracker.Model
 {
@@ -6,8 +8,8 @@ namespace ShadowrunInitTracker.Model
     public class CombatInstance
     {
         public ActorCollection Actors { get; set; } = new ActorCollection();
-        public InitiativePass DelayingActors { get; set; } = new InitiativePass();
-        public InitiativePass AllActors { get; set; } = new InitiativePass();
+        public InitiativeEntryCollection DelayingActors { get; set; } = new InitiativePass();//todo alternate sort
+        public InitiativeEntryCollection AllActors { get; set; } = new InitiativePass();//todo alternate sort
         public EventCollection Events { get; set; } = new EventCollection();
 
         public InitiativeTurn CurrentTurn { get; } = new InitiativeTurn();
@@ -27,6 +29,12 @@ namespace ShadowrunInitTracker.Model
                 return NextResult.NoMoreActors;
             }
             return NextResult.NextActorFound;
+        }
+
+        public void TakeDelayedAction(Actor actor)
+        {
+            //insert delaying actor into queue
+            Next();
         }
 
         public class Time
@@ -65,6 +73,23 @@ namespace ShadowrunInitTracker.Model
                     CurrentTurn.Passes[pass].Add(new ActorInitiativeEntry(a));
                 foreach (var e in Events.GetEventsForPass(CurrentTurnNumber, pass))
                     CurrentTurn.Passes[pass].Add(new EventInitiativeEntry(e));
+                CurrentTurn.Passes[pass].InitialSort();
+            }
+
+        }
+
+        internal void RemoveEntry(InitiativeEntry entry)
+        {
+            if(entry is EventInitiativeEntry)
+            {
+                RemoveEvent(entry.Source as Event);
+            }
+            else if(entry is ActorInitiativeEntry)
+            {
+                foreach(var pass in CurrentTurn.Passes.Values)
+                {
+                    pass.Remove(entry);
+                }
             }
         }
 
@@ -92,10 +117,11 @@ namespace ShadowrunInitTracker.Model
                     else
                     {
                         DelayingActors.RemoveWhereSource(changed);
-                        CurrentTurn.CurrentPass.AddImmediate(new ActorInitiativeEntry(changed));
+                        CurrentPass.ResumeActor(new ActorInitiativeEntry(changed));
                         for (int pass = CurrentTurn.CurrentPassNumber+1; pass <= changed.TurnInitiativePasses; pass++)
                         {
                             CurrentTurn.Passes[pass].Add(new ActorInitiativeEntry(changed));
+                            CurrentTurn.Passes[pass].InitialSort();
                         }
                     }
                     break;

@@ -11,8 +11,6 @@ namespace ShadowrunInitTracker.ViewModel
 {
     public class CharacterViewModel : INotifyPropertyChanged
     {
-        private static readonly string charactersExtension = "S.I.T. Characters (*.sitch)|*.sitch";
-        private static XmlSerializer characterSerializer = new XmlSerializer(typeof(ObservableCollection<Character>));
 
         public ObservableCollection<Character> Characters { get { return DataLibrary.Characters; } }
         Character selectedCharacter;
@@ -38,11 +36,11 @@ namespace ShadowrunInitTracker.ViewModel
             Characters.Remove(toDelete);
         }
 
-        public void ImportCharacterSet(ObservableCollection<Character> toLoadInto)
+        public void ImportAllCharacters()
         {
             try
             {
-                var dlg = new OpenFileDialog { Filter = charactersExtension };
+                var dlg = new OpenFileDialog { Filter = DataIO.CharactersExtension };
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
@@ -50,9 +48,8 @@ namespace ShadowrunInitTracker.ViewModel
                     {
                         if (inStream != null)
                         {
-                            foreach (var rec in characterSerializer.Deserialize(inStream) as ObservableCollection<Character>)
-                                toLoadInto.Add(rec);
-                            //LoadInto..AddRange(characterSerializer.Deserialize(inStream) as List<Character>);
+                            foreach (var rec in DataIO.LoadCharacters(inStream))
+                                DataLibrary.Characters.Add(rec);
                         }
                     }
                 }
@@ -63,11 +60,11 @@ namespace ShadowrunInitTracker.ViewModel
             }
         }
 
-        public void ExportCharacterSet(ObservableCollection<Character> toSave)
+        public void ExportAllCharacters()
         {
             try
             {
-                var dlg = new SaveFileDialog { Filter = charactersExtension };
+                var dlg = new SaveFileDialog { Filter = DataIO.CharactersExtension };
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
@@ -75,7 +72,7 @@ namespace ShadowrunInitTracker.ViewModel
                     {
                         if (outStream != null)
                         {
-                            characterSerializer.Serialize(new StreamWriter(outStream), toSave);
+                            DataIO.SaveCharacters(outStream, DataLibrary.Characters);
                         }
                     }
                 }

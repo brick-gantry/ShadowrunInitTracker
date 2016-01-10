@@ -6,13 +6,14 @@ namespace ShadowrunInitTracker.Model
     [Serializable]
     public class ActorInitiativeEntry : InitiativeEntry
     {
-        Actor Actor;
-        public override INotifyPropertyChanged Source { get { return Actor; } }
+        Actor actor;
+        public override INotifyPropertyChanged Source { get { return actor; } }
+        public Actor Actor { get { return actor; } }
 
         public ActorInitiativeEntry(Actor actor)
         {
-            Actor = actor;
-            Actor.PropertyChanged += Actor_PropertyChanged;
+            this.actor = actor;
+            actor.PropertyChanged += Actor_PropertyChanged;
         }
 
         ~ActorInitiativeEntry()
@@ -28,7 +29,7 @@ namespace ShadowrunInitTracker.Model
                 case "CurrentMode":
                     NotifyPropertyChanged("Description");
                     break;
-                case "CurrentInitiativePhase":
+                case "AdjustedInitiativeScore":
                     NotifyPropertyChanged("Phase");
                     NotifyPropertyChanged("PhaseDescripton");
                     break;
@@ -49,16 +50,34 @@ namespace ShadowrunInitTracker.Model
             {
                 if(Actor.InitiativeGlitch == GlitchType.CriticalGlitch)
                     return string.Format("{0} ({1})", "CG", Actor.WoundModifier);
-                return string.Format("{0} ({1})", Actor.AdjustedInitiativeScore, Actor.WoundModifier);
+                return string.Format("{0} ({1})", Phase, Actor.WoundModifier);
             }
         }
+
 
         public override int Phase
         {
             get
             {
-                return Actor.AdjustedInitiativeScore;
+                return TakingDelayedAction ? DelayedActionPhase.Value : Actor.AdjustedInitiativeScore;
             }
+        }
+
+        int? delayedActionPhase = null;
+        public int? DelayedActionPhase
+        {
+            get { return delayedActionPhase; }
+            set
+            {
+                delayedActionPhase = value;
+                NotifyPropertyChanged("DelayedActionPhase");
+                NotifyPropertyChanged("Phase");
+                NotifyPropertyChanged("PhaseDescription");
+            }
+        }
+        public bool TakingDelayedAction
+        {
+            get { return DelayedActionPhase.HasValue; }
         }
     }
 }

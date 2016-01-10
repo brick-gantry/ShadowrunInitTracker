@@ -19,25 +19,17 @@ namespace ShadowrunInitTracker.View
             set { SetValue(TitleProperty, value); }
         }
 
-        public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(DelayingListView));
-        public IEnumerable ItemsSource
+        public static readonly DependencyProperty EntryCollectionProperty =
+            DependencyProperty.Register("EntryCollection", typeof(InitiativeEntryCollection), typeof(DelayingListView));
+        public InitiativeEntryCollection EntryCollection
         {
-            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
+            get { return (InitiativeEntryCollection)GetValue(EntryCollectionProperty); }
+            set { SetValue(EntryCollectionProperty, value); }
         }
 
         public DelayingListView()
         {
             InitializeComponent();
-        }
-
-        public static readonly RoutedUICommand EndDelayActorCmd = new RoutedUICommand(
-            "Resume Acting", "EndDelayActorCmd", typeof(CombatInitiativeView));
-        private void EndDelayActor(object sender, ExecutedRoutedEventArgs e)
-        {
-            var actor = (e.Parameter as InitiativeEntry).Source as Actor;
-            actor.Delaying = false;
         }
     }
 }

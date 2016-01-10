@@ -79,8 +79,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\DataIO.cs" />
+    <Compile Include="Model\InitiativeEntryComparer.cs" />
     <Compile Include="Model\InitiativeStructures\ActorInitiativeEntry.cs" />
     <Compile Include="Model\InitiativeStructures\EventInitiativeEntry.cs" />
+    <Compile Include="Model\InitiativeStructures\InitiativeEntryCollection.cs" />
     <Compile Include="Model\Things\Character.cs" />
     <Compile Include="Model\Things\CharacterCollection.cs" />
     <Compile Include="Model\InitiativeStructures\InitiativePass.cs" />
@@ -90,10 +93,16 @@
     <Compile Include="ViewModel\CharacterViewModel.cs" />
     <Compile Include="ViewModel\CombatViewModel.cs" />
     <Compile Include="ViewModel\EventViewModel.cs" />
-    <Compile Include="View\Combat\CombatInitiativeView\DelayingListView.xaml.cs">
+    <Compile Include="View\Combat\Actor\ActorEditWindow.xaml.cs">
+      <DependentUpon>ActorEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Combat\Actor\ActorEditView.xaml.cs">
+      <DependentUpon>ActorEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Combat\CombatInitiativeViewLists\DelayingListView.xaml.cs">
       <DependentUpon>DelayingListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Combat\CombatInitiativeView\AllActorsListView.xaml.cs">
+    <Compile Include="View\Combat\CombatInitiativeViewLists\AllActorsListView.xaml.cs">
       <DependentUpon>AllActorsListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Combat\CombatToggleTab.xaml.cs">
@@ -117,17 +126,25 @@
     <Compile Include="View\Events\EventEditView.xaml.cs">
       <DependentUpon>EventEditView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Combat\CombatInitiativeView\CombatInitiativeView.xaml.cs">
+    <Compile Include="View\Combat\CombatInitiativeView.xaml.cs">
       <DependentUpon>CombatInitiativeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Combat\CombatInitiativeView\PassListView.xaml.cs">
+    <Compile Include="View\Combat\CombatInitiativeViewLists\PassListView.xaml.cs">
       <DependentUpon>PassListView.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\Combat\CombatInitiativeView\DelayingListView.xaml">
+    <Page Include="View\Combat\Actor\ActorEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Combat\Actor\ActorEditView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Combat\CombatInitiativeView\AllActorsListView.xaml">
+    <Page Include="View\Combat\CombatInitiativeViewLists\DelayingListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Combat\CombatInitiativeViewLists\AllActorsListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -159,7 +176,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Combat\CombatInitiativeView\CombatInitiativeView.xaml">
+    <Page Include="View\Combat\CombatInitiativeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,7 +212,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\Combat\CombatInitiativeView\PassListView.xaml">
+    <Page Include="View\Combat\CombatInitiativeViewLists\PassListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

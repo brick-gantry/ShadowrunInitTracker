@@ -6,21 +6,13 @@
              xmlns:local="clr-namespace:ShadowrunInitTracker.View"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              xmlns:model="clr-namespace:ShadowrunInitTracker.Model">
-    <UserControl.CommandBindings>
-        <CommandBinding Command="{x:Static local:DelayingListView.EndDelayActorCmd}" Executed="EndDelayActor"/>
-    </UserControl.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DelayingListView}}}"/>
-        <ListView Grid.Row="1" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DelayingListView}}}" SelectedIndex="{Binding CurrentEntryIndex, Mode=OneWay}" SelectionMode="Single" Focusable="False">
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Act" Command="{x:Static local:DelayingListView.EndDelayActorCmd}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
-                </ContextMenu>
-            </ListView.ContextMenu>
+        <ListView Grid.Row="1" ItemsSource="{Binding EntryCollection, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DelayingListView}}}" SelectedIndex="{Binding EntryCollection.CurrentEntryIndex, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DelayingListView}}}" SelectionMode="Single" Focusable="False">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridView.Columns>

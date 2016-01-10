@@ -40,6 +40,13 @@ namespace ShadowrunInitTracker.ViewModel
     {
         public CharacterCollection Characters { get { return DataLibrary.Characters; } }
         public ObservableCollection<SelectableActor> SelectableActors { get; set; } = new ObservableCollection<SelectableActor>();
+        public Actor SelectedActor { get { return Combat.AllActors.CurrentEntry.Source as Actor; } }
+
+        public void RollInit(Actor actor, bool useEdge)
+        {
+            actor.RollInit(useEdge);
+        }
+
         public CombatInstance Combat
         {
             get { return DataLibrary.Combat; }
@@ -76,11 +83,6 @@ namespace ShadowrunInitTracker.ViewModel
         #endregion
 
         #region combat
-        private static readonly string combatExtension = "S.I.T. Combat (*.sitco)|*.sitco";
-
-        //private static XmlSerializer combatSerializer = new XmlSerializer(typeof(CombatInstance));
-        private static BinaryFormatter combatSerializer = new BinaryFormatter();
-        
         public void StartCombat()
         {
             Combat.Reset();
@@ -121,7 +123,7 @@ namespace ShadowrunInitTracker.ViewModel
         {
             try
             {
-                var dlg = new SaveFileDialog { Filter = combatExtension };
+                var dlg = new SaveFileDialog { Filter = DataIO.CombatExtension };
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
@@ -129,7 +131,7 @@ namespace ShadowrunInitTracker.ViewModel
                     {
                         if (outStream != null)
                         {
-                            combatSerializer.Serialize(outStream, Combat);
+                            DataIO.SaveCombat(outStream, Combat);
                         }
                     }
                 }
@@ -144,7 +146,7 @@ namespace ShadowrunInitTracker.ViewModel
         {
             try
             {
-                var dlg = new SaveFileDialog { Filter = combatExtension };
+                var dlg = new SaveFileDialog { Filter = DataIO.CombatExtension };
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
@@ -152,7 +154,7 @@ namespace ShadowrunInitTracker.ViewModel
                     {
                         if (inStream != null)
                         {
-                            Combat = combatSerializer.Deserialize(inStream) as CombatInstance;
+                            Combat = DataIO.LoadCombat(inStream);
                         }
                     }
                 }

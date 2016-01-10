@@ -6,13 +6,13 @@ using System.Windows.Input;
 namespace ShadowrunInitTracker.View
 {
     /// <summary>
-    /// Interaction logic for ActorSelectionView.xaml
+    /// Interaction logic for FullView.xaml
     /// </summary>
-    public partial class ActorSelectionView : UserControl
+    public partial class CombatInitiativeView : UserControl
     {
         CombatViewModel vm { get { return DataContext as CombatViewModel; } }
 
-        public ActorSelectionView()
+        public CombatInitiativeView()
         {
             InitializeComponent();
         }
